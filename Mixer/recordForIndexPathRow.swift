@@ -17,21 +17,12 @@ final class Shared {
 
 
 
-class audioMixer{
+class audioMixer: Codable{
     
     let name:String!
-    let duration:TimeInterval!
-    let isPlay:Bool = false
     
-    
-    init(name:String, duration:TimeInterval) {
+    init(name:String) {
         self.name = name
-        self.duration = duration
     }
 }
 
-class audioMixerArray:audioMixer{
-    
-    let listOfRecords:[audioMixer] = []
-    
-}

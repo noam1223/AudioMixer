@@ -9,18 +9,42 @@
 import UIKit
 import AVFoundation
 import FirebaseStorage
+import FirebaseAuth
 
 class recordViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDelegate{
     
+    let recordListPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("record.plist")
+    var recordPlist = [audioMixer]()
+    
     @IBAction func homePage(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    func saveRecords(){
+        let encoder = PropertyListEncoder()
+        do{
+            let data = try encoder.encode(recordPlist)
+            try data.write(to: recordListPath!)
+        } catch {
+            print("ERROR SAVING RECORD: \(error)")
+        }
+    }
+    
+    func loadRecords(){
+        if let data = try? Data(contentsOf: recordListPath!){
+            let decoder = PropertyListDecoder()
+            do{
+                recordPlist = try decoder.decode([audioMixer].self, from: data)
+            } catch {
+                print("ERROR TO LOAD RECORDS: \(error)")
+            }
+        }
     }
     
     func uploadSound(localFile: URL) {
         let storageRef = Storage.storage().reference()
         let fileName = "/\(numberOfRecords).m4a"
         let imagesRef = storageRef.child("upload").child(fileName)
-        
         let uploadTask = imagesRef.putFile(from: localFile, metadata: nil) { metadata, error in
             if let error = error {
                 print(error)
@@ -31,8 +55,6 @@ class recordViewController: UIViewController, AVAudioPlayerDelegate, AVAudioReco
             }
         }
     }
-    
-    var saveRecordList:audioMixerArray!
     
     @IBOutlet weak var timeLabel: UILabel!
     var numberOfRecords:Int = 0
@@ -48,9 +70,9 @@ class recordViewController: UIViewController, AVAudioPlayerDelegate, AVAudioReco
         super.viewDidLoad()
         let nc = NotificationCenter.default
         let session = AVAudioSession.sharedInstance()
-        if let number:Int = UserDefaults.standard.object(forKey: "myNumber") as? Int { numberOfRecords = number }
-
+        loadRecords()
     }
+    
     @IBAction func recordsList(_ sender: UIButton) {
         let listRecord = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "recordListViewController") as! recordsListViewController
         self.present(listRecord, animated: true, completion: nil)
@@ -97,8 +119,11 @@ extension recordViewController{
     }
     
     func setupRecord() {
-        numberOfRecords += 1
-        let fileName = getDirectory().appendingPathComponent("\(numberOfRecords).m4a")
+        let fileName = getDirectory().appendingPathComponent("example.m4a")
+        if FileManager.default.fileExists(atPath: fileName.path){
+            try! FileManager.default.removeItem(at: fileName)
+            let fileName = getDirectory().appendingPathComponent("example.m4a")
+        }
         let recordSettings = [
             AVFormatIDKey : Int(kAudioFormatMPEG4AAC), AVSampleRateKey : 44100, AVNumberOfChannelsKey : 1, AVEncoderAudioQualityKey : AVAudioQuality.high.rawValue
             ] as [String : Any]
