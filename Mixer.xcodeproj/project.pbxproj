@@ -7,23 +7,47 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B47EE8A21B5B091004C76CE /* recordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B47EE8921B5B091004C76CE /* recordViewController.swift */; };
+		1B47EE8C21BA5002004C76CE /* recordsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B47EE8B21BA5002004C76CE /* recordsListViewController.swift */; };
+		1B47EE9021BC2584004C76CE /* theMixerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B47EE8F21BC2584004C76CE /* theMixerViewController.swift */; };
+		1B47EEBB21C02AC5004C76CE /* ChooseRecordPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B47EEBA21C02AC5004C76CE /* ChooseRecordPopUpViewController.swift */; };
+		1B47EEBD21C0FF82004C76CE /* recordForIndexPathRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B47EEBC21C0FF82004C76CE /* recordForIndexPathRow.swift */; };
 		1B5292FD21B4284C0060C592 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5292FC21B4284C0060C592 /* AppDelegate.swift */; };
-		1B5292FF21B4284C0060C592 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5292FE21B4284C0060C592 /* ViewController.swift */; };
+		1B5292FF21B4284C0060C592 /* mainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5292FE21B4284C0060C592 /* mainViewController.swift */; };
 		1B52930221B4284C0060C592 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B52930021B4284C0060C592 /* Main.storyboard */; };
 		1B52930521B4284C0060C592 /* Mixer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1B52930321B4284C0060C592 /* Mixer.xcdatamodeld */; };
 		1B52930721B4284C0060C592 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B52930621B4284C0060C592 /* Assets.xcassets */; };
 		1B52930A21B4284C0060C592 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B52930821B4284C0060C592 /* LaunchScreen.storyboard */; };
+		1B834C9A21CF81EE0022D222 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1B834C9921CF81EE0022D222 /* GoogleService-Info.plist */; };
+		1B834C9C21CF89500022D222 /* LoginOrSignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B834C9B21CF89500022D222 /* LoginOrSignupViewController.swift */; };
+		1B834C9F21CF8C630022D222 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B834C9E21CF8C630022D222 /* LoginViewController.swift */; };
+		1B834CA121CF8C750022D222 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B834CA021CF8C750022D222 /* SignUpViewController.swift */; };
+		1B834CA521D0CC8E0022D222 /* AudioMixerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B834CA421D0CC8E0022D222 /* AudioMixerHelper.swift */; };
+		8424EF15901FBED3F533A41B /* Pods_Mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32C104C08F65C3FA641EA054 /* Pods_Mixer.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1B47EE8921B5B091004C76CE /* recordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = recordViewController.swift; sourceTree = "<group>"; };
+		1B47EE8B21BA5002004C76CE /* recordsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = recordsListViewController.swift; sourceTree = "<group>"; };
+		1B47EE8F21BC2584004C76CE /* theMixerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = theMixerViewController.swift; sourceTree = "<group>"; };
+		1B47EEBA21C02AC5004C76CE /* ChooseRecordPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseRecordPopUpViewController.swift; sourceTree = "<group>"; };
+		1B47EEBC21C0FF82004C76CE /* recordForIndexPathRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = recordForIndexPathRow.swift; sourceTree = "<group>"; };
 		1B5292F921B4284C0060C592 /* Mixer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mixer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B5292FC21B4284C0060C592 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1B5292FE21B4284C0060C592 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1B5292FE21B4284C0060C592 /* mainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mainViewController.swift; sourceTree = "<group>"; };
 		1B52930121B4284C0060C592 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1B52930421B4284C0060C592 /* Mixer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Mixer.xcdatamodel; sourceTree = "<group>"; };
 		1B52930621B4284C0060C592 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1B52930921B4284C0060C592 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1B52930B21B4284C0060C592 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1B834C9921CF81EE0022D222 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1B834C9B21CF89500022D222 /* LoginOrSignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginOrSignupViewController.swift; sourceTree = "<group>"; };
+		1B834C9E21CF8C630022D222 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		1B834CA021CF8C750022D222 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		1B834CA421D0CC8E0022D222 /* AudioMixerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AudioMixerHelper.swift; path = /Users/noamsasunker/Desktop/Mixer/Mixer/AudioMixerHelper.swift; sourceTree = "<absolute>"; };
+		32C104C08F65C3FA641EA054 /* Pods_Mixer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mixer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED702D67E42120EEA41F1EAE /* Pods-Mixer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mixer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mixer/Pods-Mixer.debug.xcconfig"; sourceTree = "<group>"; };
+		EE1872771FB093580CCE4607 /* Pods-Mixer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mixer.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mixer/Pods-Mixer.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +55,32 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8424EF15901FBED3F533A41B /* Pods_Mixer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1B47EEBF21C11CC2004C76CE /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				1B5292FE21B4284C0060C592 /* mainViewController.swift */,
+				1B47EE8B21BA5002004C76CE /* recordsListViewController.swift */,
+				1B47EE8921B5B091004C76CE /* recordViewController.swift */,
+				1B47EE8F21BC2584004C76CE /* theMixerViewController.swift */,
+				1B47EEBA21C02AC5004C76CE /* ChooseRecordPopUpViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		1B5292F021B4284C0060C592 = {
 			isa = PBXGroup;
 			children = (
 				1B5292FB21B4284C0060C592 /* Mixer */,
 				1B5292FA21B4284C0060C592 /* Products */,
+				CDF8D40DDF5D0F13693154C4 /* Pods */,
+				F2548B3447020D235B8A0108 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,15 +95,46 @@
 		1B5292FB21B4284C0060C592 /* Mixer */ = {
 			isa = PBXGroup;
 			children = (
+				1B834C9D21CF8C340022D222 /* LoginOrSignUpPages */,
+				1B47EEBF21C11CC2004C76CE /* ViewControllers */,
 				1B5292FC21B4284C0060C592 /* AppDelegate.swift */,
-				1B5292FE21B4284C0060C592 /* ViewController.swift */,
+				1B834CA421D0CC8E0022D222 /* AudioMixerHelper.swift */,
 				1B52930021B4284C0060C592 /* Main.storyboard */,
+				1B47EEBC21C0FF82004C76CE /* recordForIndexPathRow.swift */,
 				1B52930621B4284C0060C592 /* Assets.xcassets */,
 				1B52930821B4284C0060C592 /* LaunchScreen.storyboard */,
 				1B52930B21B4284C0060C592 /* Info.plist */,
 				1B52930321B4284C0060C592 /* Mixer.xcdatamodeld */,
+				1B834C9921CF81EE0022D222 /* GoogleService-Info.plist */,
 			);
 			path = Mixer;
+			sourceTree = "<group>";
+		};
+		1B834C9D21CF8C340022D222 /* LoginOrSignUpPages */ = {
+			isa = PBXGroup;
+			children = (
+				1B834C9B21CF89500022D222 /* LoginOrSignupViewController.swift */,
+				1B834C9E21CF8C630022D222 /* LoginViewController.swift */,
+				1B834CA021CF8C750022D222 /* SignUpViewController.swift */,
+			);
+			path = LoginOrSignUpPages;
+			sourceTree = "<group>";
+		};
+		CDF8D40DDF5D0F13693154C4 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				ED702D67E42120EEA41F1EAE /* Pods-Mixer.debug.xcconfig */,
+				EE1872771FB093580CCE4607 /* Pods-Mixer.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		F2548B3447020D235B8A0108 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				32C104C08F65C3FA641EA054 /* Pods_Mixer.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +144,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1B52930E21B4284C0060C592 /* Build configuration list for PBXNativeTarget "Mixer" */;
 			buildPhases = (
+				87AFE9650BD301E3A192679B /* [CP] Check Pods Manifest.lock */,
 				1B5292F521B4284C0060C592 /* Sources */,
 				1B5292F621B4284C0060C592 /* Frameworks */,
 				1B5292F721B4284C0060C592 /* Resources */,
+				42D94B220602E896746BE069 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -127,6 +199,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B52930A21B4284C0060C592 /* LaunchScreen.storyboard in Resources */,
+				1B834C9A21CF81EE0022D222 /* GoogleService-Info.plist in Resources */,
 				1B52930721B4284C0060C592 /* Assets.xcassets in Resources */,
 				1B52930221B4284C0060C592 /* Main.storyboard in Resources */,
 			);
@@ -134,14 +207,70 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		42D94B220602E896746BE069 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Mixer/Pods-Mixer-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChameleonFramework.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Mixer/Pods-Mixer-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		87AFE9650BD301E3A192679B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Mixer-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		1B5292F521B4284C0060C592 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B5292FF21B4284C0060C592 /* ViewController.swift in Sources */,
+				1B834C9F21CF8C630022D222 /* LoginViewController.swift in Sources */,
+				1B834CA521D0CC8E0022D222 /* AudioMixerHelper.swift in Sources */,
+				1B47EE9021BC2584004C76CE /* theMixerViewController.swift in Sources */,
+				1B5292FF21B4284C0060C592 /* mainViewController.swift in Sources */,
 				1B52930521B4284C0060C592 /* Mixer.xcdatamodeld in Sources */,
+				1B47EEBB21C02AC5004C76CE /* ChooseRecordPopUpViewController.swift in Sources */,
+				1B834C9C21CF89500022D222 /* LoginOrSignupViewController.swift in Sources */,
+				1B47EE8C21BA5002004C76CE /* recordsListViewController.swift in Sources */,
 				1B5292FD21B4284C0060C592 /* AppDelegate.swift in Sources */,
+				1B47EE8A21B5B091004C76CE /* recordViewController.swift in Sources */,
+				1B834CA121CF8C750022D222 /* SignUpViewController.swift in Sources */,
+				1B47EEBD21C0FF82004C76CE /* recordForIndexPathRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,6 +405,7 @@
 		};
 		1B52930F21B4284C0060C592 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ED702D67E42120EEA41F1EAE /* Pods-Mixer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -290,6 +420,7 @@
 		};
 		1B52931021B4284C0060C592 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EE1872771FB093580CCE4607 /* Pods-Mixer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

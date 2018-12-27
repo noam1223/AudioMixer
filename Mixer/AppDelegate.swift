@@ -8,6 +8,8 @@
 
 import UIKit
 import CoreData
+import AVFoundation
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,6 +19,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        //Set AVAudioSession Category
+        FirebaseApp.configure()
+        let session = AVAudioSession.sharedInstance()
+        do{
+            try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: AVAudioSessionCategoryOptions.defaultToSpeaker)
+            try session.setActive(true)
+            // Check microphone permission
+            
+        } catch let error as NSError {
+            print("AVAudioSession configuration error:\(error.localizedDescription)")
+        }
         return true
     }
 
