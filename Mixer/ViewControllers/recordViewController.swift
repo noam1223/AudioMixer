@@ -14,6 +14,7 @@ import FirebaseAuth
 class recordViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDelegate{
     
     let recordListPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("record.plist")
+    let onlyRecord = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("example.m4a")
     var recordPlist = [audioMixer]()
     
     @IBAction func homePage(_ sender: UIButton) {
@@ -41,13 +42,13 @@ class recordViewController: UIViewController, AVAudioPlayerDelegate, AVAudioReco
         }
     }
     
-    func uploadSound(localFile: URL) {
+    func uploadSound(localFile: URL, name:String) {
         let storageRef = Storage.storage().reference()
-        let fileName = "/\(numberOfRecords).m4a"
+        let fileName = "/\(name).m4a"
         let imagesRef = storageRef.child("upload").child(fileName)
         let uploadTask = imagesRef.putFile(from: localFile, metadata: nil) { metadata, error in
             if let error = error {
-                print(error)
+                print("ERROE TO UPLOAD: \(error)")
             } else {
                 // Metadata contains file metadata such as size, content-type, and download URL.
                 let downloadURL = metadata!.size
@@ -94,16 +95,31 @@ class recordViewController: UIViewController, AVAudioPlayerDelegate, AVAudioReco
         updateTimer.add(to: RunLoop.current, forMode: RunLoopMode.commonModes)
     }
     
-    @IBAction func saveRecord(_ sender: UIButton) {
-        
-    }
-    
     @IBAction func stopRecord(_ sender: UIButton) {
         audioRecorder.stop()
         stopUpdateLoop()
         audioRecorder = nil
-        UserDefaults.standard.set(numberOfRecords, forKey: "myNumber")
-        uploadSound(localFile: getDirectory().appendingPathComponent("\(numberOfRecords).m4a"))
+        
+        var newTextField = UITextField()
+        
+        let alert = UIAlertController(title: "Save", message: "Do you want to save the record?", preferredStyle: .alert)
+        let action1 = UIAlertAction(title: "Yes", style: .default) { (yesAction) in
+            
+            self.recordPlist.append(audioMixer(name: newTextField.text!))
+            self.saveRecords()
+            self.uploadSound(localFile: self.getURLforMemo() as URL, name: newTextField.text!)
+            
+        }
+        
+        let action2 = UIAlertAction(title: "No", style: .cancel, handler: nil)
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Name it!"
+            newTextField = alertTextField
+        }
+        alert.addAction(action1)
+        alert.addAction(action2)
+        present(alert, animated: true, completion: nil)
+        
     }
 }
 
@@ -119,23 +135,18 @@ extension recordViewController{
     }
     
     func setupRecord() {
-        let fileName = getDirectory().appendingPathComponent("example.m4a")
-        if FileManager.default.fileExists(atPath: fileName.path){
-            try! FileManager.default.removeItem(at: fileName)
-            let fileName = getDirectory().appendingPathComponent("example.m4a")
-        }
+        let fileName = getURLforMemo()
         let recordSettings = [
             AVFormatIDKey : Int(kAudioFormatMPEG4AAC), AVSampleRateKey : 44100, AVNumberOfChannelsKey : 1, AVEncoderAudioQualityKey : AVAudioQuality.high.rawValue
             ] as [String : Any]
         do {
-            audioRecorder = try AVAudioRecorder(url: fileName, settings: recordSettings)
+            audioRecorder = try AVAudioRecorder(url: fileName as URL, settings: recordSettings)
             audioRecorder.delegate = self
             audioRecorder.record()
         } catch {
             displayAlert(title: "Record didn't start", message: "please try again")
         }
     }
-    
     
     @objc func updateLoop() {
         if CFAbsoluteTimeGetCurrent() - soundTimer > 0.5 {
@@ -150,7 +161,15 @@ extension recordViewController{
         // Update UI
         timeLabel.text = formattedCurrentTime1(time: UInt(0))
     }
+    
+    func getURLforMemo() -> NSURL {
+        let tempDir = NSTemporaryDirectory()
+        let filePath = tempDir + "/example.m4a"
+        
+        return NSURL.fileURL(withPath: filePath) as NSURL
+    }
 }
+
 
 
 
