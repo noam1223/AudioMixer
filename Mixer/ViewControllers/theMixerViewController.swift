@@ -76,9 +76,17 @@ class theMixerViewController: UIViewController,AVAudioPlayerDelegate {
     
     func getURLforMemo(fileName: String) -> NSURL {
         let tempDir = NSTemporaryDirectory()
-        let filePath = tempDir + fileName
+        let filePath = tempDir + "/" + fileName + ".m4a"
         
         return NSURL.fileURL(withPath: filePath) as NSURL
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if let name = Shared.shared.companyName{
+            ChosenRecordLabel.text = name
+            print(name)
+        }
     }
     
     override func viewDidLoad() {
@@ -88,7 +96,12 @@ class theMixerViewController: UIViewController,AVAudioPlayerDelegate {
     
     
     @IBAction func restartTrapped(_ sender: UIButton) {
-        
+        if audioPlayer != nil{
+            audioPlayer.currentTime = 0
+            audioPlayer.play()
+        }else{
+            return
+        }
     }
     
     
@@ -118,68 +131,46 @@ class theMixerViewController: UIViewController,AVAudioPlayerDelegate {
     
     @IBAction func pausePlayer(_ sender: UIButton) {
         audioPlayer.pause()
-        stopUpdateLoop()
     }
     
-    @IBAction func cutRecord(_ sender: UIButton) {
+    @IBAction func cutAndMerge(_ sender: UIButton) {
         if audioPlayer == nil{
             return
        }
         
-        let audioCut = getDirectory().appendingPathComponent(Shared.shared.companyName! + ".m4a")
-        let newAudioPath = getDirectory().appendingPathComponent("example.m4a")
+        let audioCut = downLoadSound(name: Shared.shared.companyName)
+        let newAudioPath = getURLforMemo(fileName: "newAudio")
         let composition = AVMutableComposition()
         guard let compositionAudioTrack = composition.addMutableTrack(withMediaType: AVMediaType.audio, preferredTrackID: kCMPersistentTrackID_Invalid)
            else{return}
         
+        compositionAudioTrack.append(url: newAudioPath as URL)
         let duration = CMTimeMakeWithSeconds(Float64(audioPlayer.currentTime), Int32(1))
         compositionAudioTrack.append(url: audioCut, duration: duration)
         
+        
+        if FileManager.default.fileExists(atPath: newAudioPath.path!){
+            try! FileManager.default.removeItem(at: newAudioPath as URL)
+        }
+        
         if let assetExport = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetAppleM4A) {
             assetExport.outputFileType = AVFileType.m4a
-            assetExport.outputURL = newAudioPath
+            assetExport.outputURL = newAudioPath as URL
             assetExport.exportAsynchronously(completionHandler: {
                 print("Done")
+                if FileManager.default.fileExists(atPath: audioCut.path){
+                    try! FileManager.default.removeItem(at: audioCut)
+                    print("AUDIOCUT REMOVED")
+                }
             })
         }
-    }
-    
-    
-    @IBAction func mergeRecord(_ sender: UIButton) {
-        
-        let newAudioPath = getDirectory().appendingPathComponent("newAudio.m4a")
-        let audioCut = getDirectory().appendingPathComponent("example.m4a")
-        
-        let composition = AVMutableComposition()
-        
-        guard let compositionAudioTrack = composition.addMutableTrack(withMediaType: AVMediaType.audio, preferredTrackID: kCMPersistentTrackID_Invalid)
-            else{return}
-        
-        compositionAudioTrack.append(url: newAudioPath)
-        compositionAudioTrack.append(url: audioCut)
-        
-        if FileManager.default.fileExists(atPath: newAudioPath.path){
-            try! FileManager.default.removeItem(at: newAudioPath)
-        }
-        
-            if let assetExport = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetAppleM4A) {
-                assetExport.outputFileType = AVFileType.m4a
-                assetExport.outputURL = newAudioPath
-                assetExport.exportAsynchronously(completionHandler: {
-                    print("Done")
-                    if FileManager.default.fileExists(atPath: audioCut.path){
-                        try! FileManager.default.removeItem(at: audioCut)
-                    }
-                })
-        }
-        
     }
 
     
     @IBAction func playRecord(_ sender: UIButton) {
-        let path = getDirectory().appendingPathComponent(Shared.shared.companyName + ".m4a")
+        let path = downLoadSound(name: Shared.shared.companyName)
         do{
-            audioPlayer = try AVAudioPlayer(contentsOf: path)
+            audioPlayer = try AVAudioPlayer(contentsOf: path as URL)
             topSlider.maximumValue = Float(audioPlayer.duration)
             formattedCurrentTime(time: UInt(audioPlayer.duration), label: maximumTimeLabel)
             audioPlayer.play()
@@ -189,17 +180,22 @@ class theMixerViewController: UIViewController,AVAudioPlayerDelegate {
         }
     }
     
-    
     @IBOutlet weak var countingTimeLabel: UILabel!
     @IBOutlet weak var maximumTimeLabel: UILabel!
     @IBOutlet weak var sliderNewRecord: UISlider!
+    
     @IBAction func sliderNewRecordHasMoved(_ sender: UISlider) {
+        if audioPlayer2 != nil{
+            audioPlayer2.stop()
+            audioPlayer2.currentTime = TimeInterval(sliderNewRecord.value)
+            audioPlayer2.play()
+        }
     }
     
     @IBAction func playNewRecord(_ sender: UIButton) {
-        let path = getDirectory().appendingPathComponent("newAudio.m4a")
+        let path = getURLforMemo(fileName: "newAudio")
         do{
-            audioPlayer2 = try AVAudioPlayer(contentsOf: path)
+            audioPlayer2 = try AVAudioPlayer(contentsOf: path as URL)
             sliderNewRecord.maximumValue = Float(audioPlayer2.duration)
             formattedCurrentTime(time: UInt(audioPlayer.duration), label: maximumTimeLabel)
             audioPlayer2.play()
@@ -210,9 +206,39 @@ class theMixerViewController: UIViewController,AVAudioPlayerDelegate {
     }
     
     @IBAction func pauseNewRecord(_ sender: UIButton) {
+        audioPlayer2.pause()
     }
     
     @IBAction func restartNewRecord(_ sender: UIButton) {
+        if audioPlayer2 != nil{
+            audioPlayer2.currentTime = 0
+            audioPlayer2.play()
+        }
+    }
+    
+    
+    @IBAction func saveNewRecord(_ sender: UIButton) {
+        var newTextField = UITextField()
+        
+        let alert = UIAlertController(title: "Save", message: "Do you want to save the record?", preferredStyle: .alert)
+        let action1 = UIAlertAction(title: "Yes", style: .default) { (yesAction) in
+            
+            self.recordPlist.append(audioMixer(name: newTextField.text!))
+            self.saveRecords()
+            self.uploadSound(localFile: self.getURLforMemo(fileName: "newAudio") as URL, name: newTextField.text!)
+            
+        }
+        
+        let action2 = UIAlertAction(title: "No", style: .cancel, handler: nil)
+        
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Name it!"
+            newTextField = alertTextField
+        }
+        
+        alert.addAction(action1)
+        alert.addAction(action2)
+        present(alert, animated: true, completion: nil)
     }
     
     func startUpdateLoop(audioPlayerCurrent:AVAudioPlayer) {

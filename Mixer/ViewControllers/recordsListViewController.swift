@@ -179,14 +179,9 @@ extension recordsListViewController: UITableViewDataSource, UITableViewDelegate{
     
 //    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
 //        if editingStyle == .delete{
-//            numberOfRecords -= 1
-//            UserDefaults.standard.set(numberOfRecords, forKey: "myNumber")
-//            let path = getDirectory().appendingPathComponent("\(indexPath.row).m4a")
-//            if FileManager.default.fileExists(atPath: path.path){
-//                try! FileManager.default.removeItem(at: path)
-//            }
-//
-//            recordsTableView.deleteRows(at: [indexPath], with: .middle)
+//            recordPlist.remove(at: indexPath.row)
+//            
+//            recordsTableView.deleteRows(at: [indexPath], with: .automatic)
 //        }
 //    }
 

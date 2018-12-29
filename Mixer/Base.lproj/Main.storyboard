@@ -404,26 +404,6 @@
                                     <action selector="playNewRecord:" destination="4LF-ox-Fbb" eventType="touchUpInside" id="bSU-n8-xfV"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SDl-xO-YYB">
-                                <rect key="frame" x="171.5" y="307.5" width="31" height="38"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
-                                <state key="normal" title="Cut">
-                                    <color key="titleColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="cutRecord:" destination="4LF-ox-Fbb" eventType="touchUpInside" id="cQ1-hN-lmy"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pq1-jD-yk0">
-                                <rect key="frame" x="301" y="307.5" width="58" height="38"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
-                                <state key="normal" title="Merge">
-                                    <color key="titleColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="mergeRecord:" destination="4LF-ox-Fbb" eventType="touchUpInside" id="8vK-CE-MuX"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The new Audio" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gSX-gw-2oD">
                                 <rect key="frame" x="16" y="401.5" width="343" height="27.5"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="20"/>
@@ -526,6 +506,26 @@
                                     <action selector="restartNewRecord:" destination="4LF-ox-Fbb" eventType="touchUpInside" id="sER-Qw-tZS"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XGn-hF-6mC">
+                                <rect key="frame" x="32" y="613" width="311" height="38"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
+                                <state key="normal" title="Save ">
+                                    <color key="titleColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="saveNewRecord:" destination="4LF-ox-Fbb" eventType="touchUpInside" id="XXZ-1e-LYh"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SDl-xO-YYB">
+                                <rect key="frame" x="227" y="307" width="132" height="38"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
+                                <state key="normal" title="Cut and Merge">
+                                    <color key="titleColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="cutAndMerge:" destination="4LF-ox-Fbb" eventType="touchUpInside" id="cQ1-hN-lmy"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -536,22 +536,20 @@
                             <constraint firstItem="8Hv-Wi-lqZ" firstAttribute="trailing" secondItem="VSc-X9-wSl" secondAttribute="trailing" constant="16" id="6HL-Tk-RHi"/>
                             <constraint firstItem="t6U-25-mHY" firstAttribute="leading" secondItem="8Hv-Wi-lqZ" secondAttribute="leading" constant="16" id="6K9-wc-7pS"/>
                             <constraint firstItem="L7e-sU-kMV" firstAttribute="top" secondItem="t6U-25-mHY" secondAttribute="bottom" constant="32" id="8l5-Q2-3PH"/>
-                            <constraint firstItem="8Hv-Wi-lqZ" firstAttribute="trailing" secondItem="Pq1-jD-yk0" secondAttribute="trailing" constant="16" id="98u-cJ-s6b"/>
                             <constraint firstItem="8Hv-Wi-lqZ" firstAttribute="trailing" secondItem="HTf-Nw-g3i" secondAttribute="trailing" constant="16" id="BZ8-DO-Qzc"/>
                             <constraint firstItem="v3c-Qg-geO" firstAttribute="centerX" secondItem="0BD-iH-mcL" secondAttribute="centerX" id="C3W-HP-ty8"/>
-                            <constraint firstItem="SDl-xO-YYB" firstAttribute="centerX" secondItem="0BD-iH-mcL" secondAttribute="centerX" id="CEq-pl-Kc3"/>
                             <constraint firstItem="KXS-5k-5fl" firstAttribute="top" secondItem="t6U-25-mHY" secondAttribute="bottom" constant="32" id="CwH-04-95c"/>
                             <constraint firstItem="8Hv-Wi-lqZ" firstAttribute="trailing" secondItem="gNL-a4-2Qu" secondAttribute="trailing" constant="16" id="FUJ-9K-Hig"/>
                             <constraint firstItem="t6U-25-mHY" firstAttribute="centerX" secondItem="0BD-iH-mcL" secondAttribute="centerX" id="HVG-RP-g9Z"/>
+                            <constraint firstItem="XGn-hF-6mC" firstAttribute="leading" secondItem="8Hv-Wi-lqZ" secondAttribute="leading" constant="32" id="JFX-On-0W3"/>
                             <constraint firstItem="8Hv-Wi-lqZ" firstAttribute="trailing" secondItem="JJK-1Q-jGd" secondAttribute="trailing" constant="16" id="M3i-iD-z5L"/>
                             <constraint firstItem="HIf-6U-ZUY" firstAttribute="leading" secondItem="8Hv-Wi-lqZ" secondAttribute="leading" constant="16" id="MnH-nk-CHJ"/>
-                            <constraint firstItem="gSX-gw-2oD" firstAttribute="top" secondItem="SDl-xO-YYB" secondAttribute="bottom" constant="56" id="Psg-uW-a51"/>
+                            <constraint firstItem="8Hv-Wi-lqZ" firstAttribute="trailing" secondItem="SDl-xO-YYB" secondAttribute="trailing" constant="16" id="PNn-A0-xJf"/>
                             <constraint firstItem="v3c-Qg-geO" firstAttribute="top" secondItem="VSc-X9-wSl" secondAttribute="bottom" constant="32" id="QTa-IF-djL"/>
                             <constraint firstItem="HIf-6U-ZUY" firstAttribute="top" secondItem="8Hv-Wi-lqZ" secondAttribute="top" constant="8" id="R98-PX-wSb"/>
                             <constraint firstItem="t6U-25-mHY" firstAttribute="top" secondItem="Sly-xf-diQ" secondAttribute="bottom" constant="8" id="SWn-1u-muZ"/>
                             <constraint firstItem="HTf-Nw-g3i" firstAttribute="leading" secondItem="8Hv-Wi-lqZ" secondAttribute="leading" constant="16" id="TP3-7v-My9"/>
                             <constraint firstItem="t6U-25-mHY" firstAttribute="top" secondItem="Drf-t1-kNp" secondAttribute="bottom" constant="8" id="Twv-7D-ez2"/>
-                            <constraint firstItem="Pq1-jD-yk0" firstAttribute="top" secondItem="gNL-a4-2Qu" secondAttribute="bottom" constant="32" id="Vqx-3l-qrJ"/>
                             <constraint firstItem="8Hv-Wi-lqZ" firstAttribute="trailing" secondItem="Drf-t1-kNp" secondAttribute="trailing" constant="16" id="XTi-jc-z2H"/>
                             <constraint firstItem="8Hv-Wi-lqZ" firstAttribute="trailing" secondItem="t6U-25-mHY" secondAttribute="trailing" constant="16" id="Xt5-Wp-rMd"/>
                             <constraint firstItem="KXS-5k-5fl" firstAttribute="leading" secondItem="8Hv-Wi-lqZ" secondAttribute="leading" constant="16" id="Z84-LO-c2p"/>
@@ -560,11 +558,14 @@
                             <constraint firstItem="VSc-X9-wSl" firstAttribute="top" secondItem="HTf-Nw-g3i" secondAttribute="bottom" constant="56" id="bnf-a0-pR8"/>
                             <constraint firstItem="VSc-X9-wSl" firstAttribute="top" secondItem="PUH-dO-0Zy" secondAttribute="bottom" constant="8" id="cNJ-jL-mic"/>
                             <constraint firstItem="gSX-gw-2oD" firstAttribute="leading" secondItem="8Hv-Wi-lqZ" secondAttribute="leading" constant="16" id="cNp-AU-rSd"/>
-                            <constraint firstItem="SDl-xO-YYB" firstAttribute="top" secondItem="v3c-Qg-geO" secondAttribute="bottom" constant="32" id="kMJ-vo-GdN"/>
+                            <constraint firstItem="8Hv-Wi-lqZ" firstAttribute="bottom" secondItem="XGn-hF-6mC" secondAttribute="bottom" constant="16" id="eMX-fz-EJt"/>
                             <constraint firstItem="VSc-X9-wSl" firstAttribute="leading" secondItem="8Hv-Wi-lqZ" secondAttribute="leading" constant="16" id="mF1-Po-2Yn"/>
+                            <constraint firstItem="gSX-gw-2oD" firstAttribute="top" secondItem="mew-zb-g4G" secondAttribute="bottom" constant="56" id="mH5-JM-tUc"/>
                             <constraint firstItem="KEa-Lp-9bC" firstAttribute="top" secondItem="VSc-X9-wSl" secondAttribute="bottom" constant="32" id="oCy-ab-aa6"/>
                             <constraint firstItem="PUH-dO-0Zy" firstAttribute="leading" secondItem="8Hv-Wi-lqZ" secondAttribute="leading" constant="16" id="oRd-tp-n7T"/>
                             <constraint firstItem="mew-zb-g4G" firstAttribute="top" secondItem="KEa-Lp-9bC" secondAttribute="bottom" constant="32" id="pVj-l3-zQc"/>
+                            <constraint firstItem="8Hv-Wi-lqZ" firstAttribute="trailing" secondItem="XGn-hF-6mC" secondAttribute="trailing" constant="32" id="pf8-yt-98i"/>
+                            <constraint firstItem="SDl-xO-YYB" firstAttribute="top" secondItem="gNL-a4-2Qu" secondAttribute="bottom" constant="32" id="pfK-o0-NQE"/>
                             <constraint firstItem="VSc-X9-wSl" firstAttribute="top" secondItem="JJK-1Q-jGd" secondAttribute="bottom" constant="8" id="puj-1c-vqP"/>
                             <constraint firstItem="ylQ-Rg-J1I" firstAttribute="top" secondItem="t6U-25-mHY" secondAttribute="bottom" constant="32" id="rIs-f8-DFh"/>
                             <constraint firstItem="VSc-X9-wSl" firstAttribute="centerX" secondItem="0BD-iH-mcL" secondAttribute="centerX" id="t8H-kF-vOL"/>
