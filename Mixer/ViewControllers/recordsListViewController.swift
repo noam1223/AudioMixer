@@ -14,6 +14,21 @@ import FirebaseStorage
 
 class recordsListViewController: UIViewController, AVAudioPlayerDelegate {
     
+    var recordPlist = [audioMixer]()
+    let recordListPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("recording.plist")
+
+    
+    func loadRecords(){
+        if let data = try? Data(contentsOf: recordListPath!){
+            let decoder = PropertyListDecoder()
+            do{
+                recordPlist = try decoder.decode([audioMixer].self, from: data)
+            } catch {
+                print("ERROR TO LOAD RECORDS: \(error)")
+            }
+        }
+    }
+    
     @IBAction func backHome(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
@@ -65,8 +80,8 @@ class recordsListViewController: UIViewController, AVAudioPlayerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadRecords()
         recordingSession = AVAudioSession.sharedInstance()
-        if let number:Int = UserDefaults.standard.object(forKey: "myNumber") as? Int { numberOfRecords = number }
         recordsTableView.separatorStyle = .none
     }
     
@@ -87,17 +102,24 @@ class recordsListViewController: UIViewController, AVAudioPlayerDelegate {
         updateTimer.add(to: RunLoop.current, forMode: RunLoopMode.commonModes)
     }
     
-    func downLoadSound() {
+    func getURLforMemo(fileName: String) -> NSURL {
+        let tempDir = NSTemporaryDirectory()
+        let filePath = tempDir + fileName
+        
+        return NSURL.fileURL(withPath: filePath) as NSURL
+    }
+    
+    func downLoadSound(name:String) -> URL {
         let storageRef = Storage.storage().reference()
-        let fileName = "/\(numberOfRecords).m4a"
+        let fileName = "/\(name).m4a"
         let imagesRef = storageRef.child("upload").child(fileName)
-        let newfile = getDirectory().appendingPathComponent("examples.m4a")
+        let newfile = getURLforMemo(fileName: name)
         let uploadTask = imagesRef.getData(maxSize: 10 * 1024 * 1024) { (data, error) in
             if let error = error {
                 print(error) } else {
                 if let d = data {
                     do {
-                        try d.write(to: newfile)
+                        try d.write(to: newfile as URL)
                         
                     } catch {
                             print(error)
@@ -106,20 +128,34 @@ class recordsListViewController: UIViewController, AVAudioPlayerDelegate {
                 }
             }
         }
+        return newfile as URL
     }
+    
+    func stopUpdateLoop() {
+        updateTimer.invalidate()
+        updateTimer = nil
+        // Update UI
+        formattedCurrentTime(time: 0, label: countingTime)
+    }
+    
+//    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+//        if !flag{
+//            stopUpdateLoop()
+//        }
+//    }
 }
 
 
 extension recordsListViewController: UITableViewDataSource, UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return numberOfRecords
+        return recordPlist.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "recordCell", for: indexPath)
-        cell.textLabel?.text = String(indexPath.row + 1)
-        if let color = FlatMint().darken(byPercentage: (CGFloat(indexPath.row) / CGFloat(numberOfRecords))){
+        cell.textLabel?.text = recordPlist[indexPath.row].name!
+        if let color = FlatMint().darken(byPercentage: (CGFloat(indexPath.row) / CGFloat(recordPlist.count))){
             cell.backgroundColor = color
             cell.textLabel?.textColor = ContrastColorOf(color, returnFlat: true)
         }
@@ -127,8 +163,7 @@ extension recordsListViewController: UITableViewDataSource, UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let path = getDirectory().appendingPathComponent("examples.m4a")
-        downLoadSound()
+        let path = downLoadSound(name: recordPlist[indexPath.row].name!)
         do{
             audioPlayer = try AVAudioPlayer(contentsOf: path)
             audioPlayer.delegate = self
@@ -138,20 +173,21 @@ extension recordsListViewController: UITableViewDataSource, UITableViewDelegate{
             startUpdateLoop()
         } catch {
             displayAlert(title: "Ops!", message: "the play goes wrong")
+            print(error)
         }
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete{
-            numberOfRecords -= 1
-            UserDefaults.standard.set(numberOfRecords, forKey: "myNumber")
-            let path = getDirectory().appendingPathComponent("\(indexPath.row).m4a")
-            if FileManager.default.fileExists(atPath: path.path){
-                try! FileManager.default.removeItem(at: path)
-            }
-            
-            recordsTableView.deleteRows(at: [indexPath], with: .middle)
-        }
-    }
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+//        if editingStyle == .delete{
+//            numberOfRecords -= 1
+//            UserDefaults.standard.set(numberOfRecords, forKey: "myNumber")
+//            let path = getDirectory().appendingPathComponent("\(indexPath.row).m4a")
+//            if FileManager.default.fileExists(atPath: path.path){
+//                try! FileManager.default.removeItem(at: path)
+//            }
+//
+//            recordsTableView.deleteRows(at: [indexPath], with: .middle)
+//        }
+//    }
 
 }

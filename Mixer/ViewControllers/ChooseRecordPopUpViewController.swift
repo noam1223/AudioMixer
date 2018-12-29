@@ -10,6 +10,20 @@ import UIKit
 import AVFoundation
 
 class ChooseRecordPopUpViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AVAudioPlayerDelegate {
+    
+    let recordListPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("recording.plist")
+    var recordPlist = [audioMixer]()
+    
+    func loadRecords(){
+        if let data = try? Data(contentsOf: recordListPath!){
+            let decoder = PropertyListDecoder()
+            do{
+                recordPlist = try decoder.decode([audioMixer].self, from: data)
+            } catch {
+                print("ERROR TO LOAD RECORDS: \(error)")
+            }
+        }
+    }
 
     @IBOutlet weak var recordsTableView: UITableView!
     var recordingSession:AVAudioSession!
@@ -23,21 +37,22 @@ class ChooseRecordPopUpViewController: UIViewController, UITableViewDataSource, 
     override func viewDidLoad() {
         super.viewDidLoad()
         recordingSession = AVAudioSession.sharedInstance()
-        if let number:Int = UserDefaults.standard.object(forKey: "myNumber") as? Int { numberOfRecords = number }
+        loadRecords()
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return numberOfRecords
+        return recordPlist.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "recordsCell", for: indexPath)
-        cell.textLabel?.text = String(indexPath.row + 1)
+        cell.textLabel?.text = recordPlist[indexPath.row].name
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        Shared.shared.companyName = String(indexPath.row + 1)
+        Shared.shared.companyName = recordPlist[indexPath.row].name
+        print(Shared.shared.companyName)
         dismiss(animated: true, completion: nil)
     }
     

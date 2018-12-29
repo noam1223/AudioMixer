@@ -9,16 +9,81 @@
 import UIKit
 import AVKit
 import Foundation
+import FirebaseStorage
 
 class theMixerViewController: UIViewController,AVAudioPlayerDelegate {
     
+    let recordListPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("recording.plist")
+    var recordPlist = [audioMixer]()
+    
+    func loadRecords(){
+        if let data = try? Data(contentsOf: recordListPath!){
+            let decoder = PropertyListDecoder()
+            do{
+                recordPlist = try decoder.decode([audioMixer].self, from: data)
+            } catch {
+                print("ERROR TO LOAD RECORDS: \(error)")
+            }
+        }
+    }
+    
+    func saveRecords(){
+        let encoder = PropertyListEncoder()
+        do{
+            let data = try encoder.encode(recordPlist)
+            try data.write(to: recordListPath!)
+        } catch {
+            print("ERROR SAVING RECORD: \(error)")
+        }
+    }
+    
+    func uploadSound(localFile: URL, name:String) {
+        let storageRef = Storage.storage().reference()
+        let fileName = "/\(name).m4a"
+        let imagesRef = storageRef.child("upload").child(fileName)
+        let uploadTask = imagesRef.putFile(from: localFile, metadata: nil) { metadata, error in
+            if let error = error {
+                print("ERROE TO UPLOAD: \(error)")
+            } else {
+                // Metadata contains file metadata such as size, content-type, and download URL.
+                let downloadURL = metadata!.size
+                print("\(downloadURL)")
+            }
+        }
+    }
+    
+    func downLoadSound(name:String) -> URL {
+        let storageRef = Storage.storage().reference()
+        let fileName = "/\(name).m4a"
+        let imagesRef = storageRef.child("upload").child(fileName)
+        let newfile = getURLforMemo(fileName: name)
+        let uploadTask = imagesRef.getData(maxSize: 10 * 1024 * 1024) { (data, error) in
+            if let error = error {
+                print(error) } else {
+                if let d = data {
+                    do {
+                        try d.write(to: newfile as URL)
+                        
+                    } catch {
+                        print(error)
+                        
+                    }
+                }
+            }
+        }
+        return newfile as URL
+    }
+    
+    func getURLforMemo(fileName: String) -> NSURL {
+        let tempDir = NSTemporaryDirectory()
+        let filePath = tempDir + fileName
+        
+        return NSURL.fileURL(withPath: filePath) as NSURL
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let number:Int = UserDefaults.standard.object(forKey: "myNumber") as! Int { numberOfRecords = number }
-        let newAudioPath = getDirectory().appendingPathComponent("newAudio.m4a")
-        if FileManager.default.fileExists(atPath: newAudioPath.path){
-            try! FileManager.default.removeItem(at: newAudioPath)
-        }
+        loadRecords()
     }
     
     

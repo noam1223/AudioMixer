@@ -13,8 +13,7 @@ import FirebaseAuth
 
 class recordViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDelegate{
     
-    let recordListPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("record.plist")
-    let onlyRecord = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("example.m4a")
+    let recordListPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("recording.plist")
     var recordPlist = [audioMixer]()
     
     @IBAction func homePage(_ sender: UIButton) {
