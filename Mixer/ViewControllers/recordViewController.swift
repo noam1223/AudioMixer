@@ -10,11 +10,43 @@ import UIKit
 import AVFoundation
 import FirebaseStorage
 import FirebaseAuth
+import IQAudioRecorderController
 
-class recordViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDelegate{
+class recordViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDelegate, IQAudioRecorderViewControllerDelegate{
+    
+    func audioRecorderController(_ controller: IQAudioRecorderViewController, didFinishWithAudioAtPath filePath: String) {
+        
+        print("finished")
+        recordNow.dismiss(animated: true, completion: nil)
+        var newTextField = UITextField()
+        
+        let alert = UIAlertController(title: "Save", message: "Do you want to save the record?", preferredStyle: .alert)
+        let action1 = UIAlertAction(title: "Yes", style: .default) { (yesAction) in
+            
+            self.recordPlist.append(audioMixer(name: newTextField.text!))
+            self.saveRecords()
+            self.uploadSound(localFile: URL.init(fileURLWithPath: filePath)  ,name: newTextField.text!)
+            
+        }
+        
+        let action2 = UIAlertAction(title: "No", style: .cancel, handler: nil)
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Name it!"
+            newTextField = alertTextField
+        }
+        
+        alert.addAction(action1)
+        alert.addAction(action2)
+        present(alert, animated: true, completion: nil)
+        
+        
+        
+    }
+    
     
     let recordListPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("recording.plist")
     var recordPlist = [audioMixer]()
+    var recordNow = IQAudioRecorderViewController()
     
     @IBAction func homePage(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
@@ -71,6 +103,7 @@ class recordViewController: UIViewController, AVAudioPlayerDelegate, AVAudioReco
         let nc = NotificationCenter.default
         let session = AVAudioSession.sharedInstance()
         loadRecords()
+        recordNow.delegate = self
     }
     
     @IBAction func recordsList(_ sender: UIButton) {
@@ -79,11 +112,20 @@ class recordViewController: UIViewController, AVAudioPlayerDelegate, AVAudioReco
     }
     
     @IBAction func startRecording(_ sender: UIButton) {
-        if audioRecorder == nil{
-            setupRecord()
-            startUpdateLoop()
-        }
+//        if audioRecorder == nil{
+//            setupRecord()
+//            startUpdateLoop()
+//        }
+       
+        recordNow.title = "Recorder"
+        recordNow.maximumRecordDuration = 10
+        recordNow.allowCropping = true
+        recordNow.barStyle = UIBarStyle.default
+        //recordNow.normalTintColor = UIColor(ciColor: .magenta)
+        
+        self.presentBlurredAudioRecorderViewControllerAnimated(recordNow)
     }
+    
     
     func startUpdateLoop() {
         if updateTimer != nil {
