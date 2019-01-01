@@ -8,8 +8,45 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseStorage
+import IQAudioRecorderController
 
-class mainViewController: UIViewController {
+
+class mainViewController: UIViewController, IQAudioRecorderViewControllerDelegate {
+    
+    let recordListPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("recording.plist")
+    var recordPlist = [audioMixer]()
+    
+    
+    func userWantToSaveRecord(filePath:String) {
+        var newTextField = UITextField()
+        
+        let alert = UIAlertController(title: "Save", message: "Do you want to save the record?", preferredStyle: .alert)
+        let action1 = UIAlertAction(title: "Yes", style: .default) { (yesAction) in
+            self.recordPlist.append(audioMixer(name: newTextField.text!))
+            self.saveRecords(recordList: self.recordPlist)
+            self.uploadSound(localFile: URL.init(fileURLWithPath: filePath)  ,name: newTextField.text!)
+        }
+        
+        let action2 = UIAlertAction(title: "No", style: .cancel, handler: nil)
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Name it!"
+            newTextField = alertTextField
+        }
+        
+        alert.addAction(action1)
+        alert.addAction(action2)
+        present(alert, animated: true, completion: nil)
+    }
+
+    
+    func audioRecorderController(_ controller: IQAudioRecorderViewController, didFinishWithAudioAtPath filePath: String) {
+        print("finished")
+        controller.delegate = nil
+        controller.dismiss(animated: true, completion: nil)
+        userWantToSaveRecord(filePath: filePath)
+    }
+    
     
     @IBAction func logOutTrapped(_ sender: UIButton) {
         try! Auth.auth().signOut()
@@ -17,28 +54,30 @@ class mainViewController: UIViewController {
     }
     
     @IBAction func listRecord(_ sender: UIButton) {
-        let listRecord = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "recordListViewController") as! recordsListViewController
+        let listRecord = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "RecordsTableViewController") as! RecordsTableViewController
         self.present(listRecord, animated: true, completion: nil)
     }
     
     @IBAction func startRecordViewController(_ sender: UIButton) {
-        let startRecord = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "recordViewController") as! recordViewController
-        self.present(startRecord, animated: true, completion: nil)
+        var recordNow = IQAudioRecorderViewController()
+        recordNow.delegate = self
+        recordNow.title = "Recorder"
+        recordNow.maximumRecordDuration = 10
+        recordNow.allowCropping = true
+        recordNow.barStyle = UIBarStyle.default
+        //recordNow.normalTintColor = UIColor(ciColor: .magenta)
+        
+        self.presentBlurredAudioRecorderViewControllerAnimated(recordNow)
     }
+    
     @IBAction func startMix(_ sender: UIButton) {
-        let mixerViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "mixerViewController") as! theMixerViewController
-        self.present(mixerViewController, animated: true, completion: nil)
+        
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        recordPlist = loadRecords()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
 }
+
 

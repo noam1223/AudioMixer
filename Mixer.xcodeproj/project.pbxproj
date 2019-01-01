@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1B47EE8A21B5B091004C76CE /* recordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B47EE8921B5B091004C76CE /* recordViewController.swift */; };
-		1B47EE8C21BA5002004C76CE /* recordsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B47EE8B21BA5002004C76CE /* recordsListViewController.swift */; };
-		1B47EE9021BC2584004C76CE /* theMixerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B47EE8F21BC2584004C76CE /* theMixerViewController.swift */; };
 		1B47EEBB21C02AC5004C76CE /* ChooseRecordPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B47EEBA21C02AC5004C76CE /* ChooseRecordPopUpViewController.swift */; };
 		1B47EEBD21C0FF82004C76CE /* recordForIndexPathRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B47EEBC21C0FF82004C76CE /* recordForIndexPathRow.swift */; };
 		1B5292FD21B4284C0060C592 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5292FC21B4284C0060C592 /* AppDelegate.swift */; };
@@ -18,6 +15,8 @@
 		1B52930521B4284C0060C592 /* Mixer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1B52930321B4284C0060C592 /* Mixer.xcdatamodeld */; };
 		1B52930721B4284C0060C592 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B52930621B4284C0060C592 /* Assets.xcassets */; };
 		1B52930A21B4284C0060C592 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B52930821B4284C0060C592 /* LaunchScreen.storyboard */; };
+		1B612F2721D96E6900B95213 /* RecordsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B612F2621D96E6800B95213 /* RecordsTableViewController.swift */; };
+		1B612F2D21D9864900B95213 /* AudioMixerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B612F2C21D9864900B95213 /* AudioMixerViewController.swift */; };
 		1B834C9A21CF81EE0022D222 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1B834C9921CF81EE0022D222 /* GoogleService-Info.plist */; };
 		1B834C9C21CF89500022D222 /* LoginOrSignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B834C9B21CF89500022D222 /* LoginOrSignupViewController.swift */; };
 		1B834C9F21CF8C630022D222 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B834C9E21CF8C630022D222 /* LoginViewController.swift */; };
@@ -27,9 +26,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1B47EE8921B5B091004C76CE /* recordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = recordViewController.swift; sourceTree = "<group>"; };
-		1B47EE8B21BA5002004C76CE /* recordsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = recordsListViewController.swift; sourceTree = "<group>"; };
-		1B47EE8F21BC2584004C76CE /* theMixerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = theMixerViewController.swift; sourceTree = "<group>"; };
 		1B47EEBA21C02AC5004C76CE /* ChooseRecordPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseRecordPopUpViewController.swift; sourceTree = "<group>"; };
 		1B47EEBC21C0FF82004C76CE /* recordForIndexPathRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = recordForIndexPathRow.swift; sourceTree = "<group>"; };
 		1B5292F921B4284C0060C592 /* Mixer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mixer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -40,6 +36,8 @@
 		1B52930621B4284C0060C592 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1B52930921B4284C0060C592 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1B52930B21B4284C0060C592 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1B612F2621D96E6800B95213 /* RecordsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsTableViewController.swift; sourceTree = "<group>"; };
+		1B612F2C21D9864900B95213 /* AudioMixerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioMixerViewController.swift; sourceTree = "<group>"; };
 		1B834C9921CF81EE0022D222 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1B834C9B21CF89500022D222 /* LoginOrSignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginOrSignupViewController.swift; sourceTree = "<group>"; };
 		1B834C9E21CF8C630022D222 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -66,10 +64,9 @@
 			isa = PBXGroup;
 			children = (
 				1B5292FE21B4284C0060C592 /* mainViewController.swift */,
-				1B47EE8B21BA5002004C76CE /* recordsListViewController.swift */,
-				1B47EE8921B5B091004C76CE /* recordViewController.swift */,
-				1B47EE8F21BC2584004C76CE /* theMixerViewController.swift */,
 				1B47EEBA21C02AC5004C76CE /* ChooseRecordPopUpViewController.swift */,
+				1B612F2C21D9864900B95213 /* AudioMixerViewController.swift */,
+				1B612F2621D96E6800B95213 /* RecordsTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -264,17 +261,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B834C9F21CF8C630022D222 /* LoginViewController.swift in Sources */,
+				1B612F2721D96E6900B95213 /* RecordsTableViewController.swift in Sources */,
 				1B834CA521D0CC8E0022D222 /* AudioMixerHelper.swift in Sources */,
-				1B47EE9021BC2584004C76CE /* theMixerViewController.swift in Sources */,
 				1B5292FF21B4284C0060C592 /* mainViewController.swift in Sources */,
 				1B52930521B4284C0060C592 /* Mixer.xcdatamodeld in Sources */,
 				1B47EEBB21C02AC5004C76CE /* ChooseRecordPopUpViewController.swift in Sources */,
 				1B834C9C21CF89500022D222 /* LoginOrSignupViewController.swift in Sources */,
-				1B47EE8C21BA5002004C76CE /* recordsListViewController.swift in Sources */,
 				1B5292FD21B4284C0060C592 /* AppDelegate.swift in Sources */,
-				1B47EE8A21B5B091004C76CE /* recordViewController.swift in Sources */,
 				1B834CA121CF8C750022D222 /* SignUpViewController.swift in Sources */,
 				1B47EEBD21C0FF82004C76CE /* recordForIndexPathRow.swift in Sources */,
+				1B612F2D21D9864900B95213 /* AudioMixerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

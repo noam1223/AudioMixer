@@ -13,17 +13,6 @@ class ChooseRecordPopUpViewController: UIViewController, UITableViewDataSource, 
     
     let recordListPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("recording.plist")
     var recordPlist = [audioMixer]()
-    
-    func loadRecords(){
-        if let data = try? Data(contentsOf: recordListPath!){
-            let decoder = PropertyListDecoder()
-            do{
-                recordPlist = try decoder.decode([audioMixer].self, from: data)
-            } catch {
-                print("ERROR TO LOAD RECORDS: \(error)")
-            }
-        }
-    }
 
     @IBOutlet weak var recordsTableView: UITableView!
     var recordingSession:AVAudioSession!
@@ -37,7 +26,7 @@ class ChooseRecordPopUpViewController: UIViewController, UITableViewDataSource, 
     override func viewDidLoad() {
         super.viewDidLoad()
         recordingSession = AVAudioSession.sharedInstance()
-        loadRecords()
+        recordPlist = loadRecords()
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

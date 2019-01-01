@@ -12,7 +12,6 @@
     <customFonts key="customFonts">
         <array key="AvenirNext.ttc">
             <string>AvenirNext-DemiBold</string>
-            <string>AvenirNext-Italic</string>
         </array>
     </customFonts>
     <scenes>
@@ -251,7 +250,6 @@
                                 </state>
                                 <connections>
                                     <action selector="startRecordViewController:" destination="BYZ-38-t0r" eventType="touchUpInside" id="q8I-h2-RVc"/>
-                                    <segue destination="Tav-jd-G4V" kind="presentation" id="aMz-OE-fHv"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CuZ-hT-2DL">
@@ -262,7 +260,7 @@
                                 </state>
                                 <connections>
                                     <action selector="listRecord:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nrs-QZ-2do"/>
-                                    <segue destination="fFR-rK-2dT" kind="presentation" id="lGF-sS-2Y4"/>
+                                    <segue destination="dKU-L2-5gQ" kind="show" id="uaf-dR-8VQ"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="46j-vH-4c0">
@@ -273,9 +271,15 @@
                                 </state>
                                 <connections>
                                     <action selector="startMix:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UiM-I5-3oi"/>
-                                    <segue destination="4LF-ox-Fbb" kind="presentation" id="4jO-7Z-XyS"/>
+                                    <segue destination="r0Y-2V-6aH" kind="showDetail" id="b7w-FJ-mXz"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Audio Mixer App" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aAj-wj-4CB">
+                                <rect key="frame" x="16" y="108" width="343" height="41"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="30"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -286,18 +290,21 @@
                             <constraint firstItem="t17-6Y-s2Q" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="JNv-cS-bwB"/>
                             <constraint firstItem="t17-6Y-s2Q" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="32" id="LCr-kH-Fpw"/>
                             <constraint firstItem="46j-vH-4c0" firstAttribute="top" secondItem="CuZ-hT-2DL" secondAttribute="bottom" constant="32" id="QIJ-Ae-uER"/>
+                            <constraint firstItem="aAj-wj-4CB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="QR1-hR-AP2"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="t17-6Y-s2Q" secondAttribute="trailing" constant="32" id="RxG-iM-JUe"/>
                             <constraint firstItem="CuZ-hT-2DL" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="VkB-Mq-4bk"/>
                             <constraint firstItem="ZAS-hD-4sL" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="YLi-ku-5rB"/>
                             <constraint firstItem="46j-vH-4c0" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="aKf-1s-7Nk"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="aAj-wj-4CB" secondAttribute="trailing" constant="16" id="hjT-Hx-M7d"/>
                             <constraint firstItem="h0e-L9-b9S" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="nUh-Es-bsy"/>
+                            <constraint firstItem="aAj-wj-4CB" firstAttribute="top" secondItem="ZAS-hD-4sL" secondAttribute="bottom" constant="42" id="sdI-cx-fZH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-970" y="-136"/>
+            <point key="canvasLocation" x="-1009" y="-136"/>
         </scene>
         <!--Choose Record Pop Up View Controller-->
         <scene sceneID="FhZ-AL-M9r">
@@ -330,8 +337,11 @@
                                         </connections>
                                     </tableView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AnV-zz-Bmv">
-                                        <rect key="frame" x="2" y="380" width="339" height="30"/>
-                                        <state key="normal" title="Close"/>
+                                        <rect key="frame" x="2" y="372" width="339" height="38"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
+                                        <state key="normal" title="Close">
+                                            <color key="titleColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
                                         <connections>
                                             <action selector="ClosePopUpRecordList:" destination="ciO-NE-Hag" eventType="touchUpInside" id="tBf-Ww-B7m"/>
                                         </connections>
@@ -361,447 +371,176 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K1P-Sc-1yX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1152.8" y="315.29235382308849"/>
+            <point key="canvasLocation" x="-2" y="600"/>
         </scene>
-        <!--The Mixer View Controller-->
-        <scene sceneID="yBw-66-e1T">
+        <!--Audio Mixer View Controller-->
+        <scene sceneID="HKo-qX-8ec">
             <objects>
-                <viewController storyboardIdentifier="mixerViewController" id="4LF-ox-Fbb" customClass="theMixerViewController" customModule="Mixer" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="0BD-iH-mcL">
+                <viewController id="r0Y-2V-6aH" customClass="AudioMixerViewController" customModule="Mixer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ndH-sE-4Mw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mew-zb-g4G">
-                                <rect key="frame" x="16" y="307.5" width="105" height="38"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
-                                <state key="normal" title="Records List">
-                                    <color key="titleColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="chooseRecord:" destination="4LF-ox-Fbb" eventType="touchUpInside" id="Mxp-cM-hT5"/>
-                                    <segue destination="ciO-NE-Hag" kind="popoverPresentation" popoverAnchorView="mew-zb-g4G" id="vgb-xr-dEb">
-                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                    </segue>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KEa-Lp-9bC">
-                                <rect key="frame" x="16" y="237.5" width="37" height="38"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
-                                <state key="normal" title="Play">
-                                    <color key="titleColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="playRecord:" destination="4LF-ox-Fbb" eventType="touchUpInside" id="vQf-s9-bh8"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KXS-5k-5fl">
-                                <rect key="frame" x="16" y="547" width="37" height="38"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
-                                <state key="normal" title="Play">
-                                    <color key="titleColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="playNewRecord:" destination="4LF-ox-Fbb" eventType="touchUpInside" id="bSU-n8-xfV"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The new Audio" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gSX-gw-2oD">
-                                <rect key="frame" x="16" y="401.5" width="343" height="27.5"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="20"/>
-                                <color key="textColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="t6U-25-mHY">
-                                <rect key="frame" x="14" y="485" width="347" height="31"/>
-                                <color key="minimumTrackTintColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="thumbTintColor" red="0.58613795042037964" green="0.68644672632217407" blue="0.91828006505966187" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <action selector="sliderNewRecordHasMoved:" destination="4LF-ox-Fbb" eventType="valueChanged" id="0be-by-RDs"/>
-                                </connections>
-                            </slider>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ylQ-Rg-J1I">
-                                <rect key="frame" x="161.5" y="547" width="52" height="38"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
-                                <state key="normal" title="Pause">
-                                    <color key="titleColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="pauseNewRecord:" destination="4LF-ox-Fbb" eventType="touchUpInside" id="HGC-pe-M6L"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sly-xf-diQ">
-                                <rect key="frame" x="16" y="453.5" width="47" height="23.5"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
-                                <color key="textColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Drf-t1-kNp">
-                                <rect key="frame" x="312" y="453.5" width="47" height="23.5"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
-                                <color key="textColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PUH-dO-0Zy">
-                                <rect key="frame" x="16" y="144" width="47" height="23.5"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
-                                <color key="textColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JJK-1Q-jGd">
-                                <rect key="frame" x="312" y="144" width="47" height="23.5"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
-                                <color key="textColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HIf-6U-ZUY">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="66s-lh-3NX">
                                 <rect key="frame" x="16" y="28" width="43" height="38"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
                                 <state key="normal" title="Back">
                                     <color key="titleColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="backHome:" destination="4LF-ox-Fbb" eventType="touchUpInside" id="2Vd-kL-3NH"/>
+                                    <action selector="backTrapped:" destination="r0Y-2V-6aH" eventType="touchUpInside" id="yos-TM-XGT"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v3c-Qg-geO">
-                                <rect key="frame" x="161" y="237.5" width="52" height="38"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dvm-Gg-tv9">
+                                <rect key="frame" x="26" y="181" width="323" height="38"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
-                                <state key="normal" title="Pause">
+                                <state key="normal" title="Choose Record">
                                     <color key="titleColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="pausePlayer:" destination="4LF-ox-Fbb" eventType="touchUpInside" id="jEE-mr-iD9"/>
+                                    <action selector="chooseRecord:" destination="r0Y-2V-6aH" eventType="touchUpInside" id="64p-5n-wE6"/>
+                                    <segue destination="ciO-NE-Hag" kind="popoverPresentation" popoverAnchorView="dvm-Gg-tv9" id="tv7-Ke-mMd">
+                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                    </segue>
                                 </connections>
                             </button>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="VSc-X9-wSl">
-                                <rect key="frame" x="14" y="175.5" width="347" height="31"/>
-                                <color key="minimumTrackTintColor" red="0.086076445880000005" green="0.71742564440000001" blue="0.50970494749999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="thumbTintColor" red="0.58613795040000005" green="0.68644672630000003" blue="0.91828006510000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iju-ec-7Y9">
+                                <rect key="frame" x="26" y="255" width="323" height="38"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
+                                <state key="normal" title="Merge Record to Mix">
+                                    <color key="titleColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
-                                    <action selector="sliderNewRecordHasMoved:" destination="4LF-ox-Fbb" eventType="valueChanged" id="ieN-Yg-f4j"/>
+                                    <action selector="mergeTrapped:" destination="r0Y-2V-6aH" eventType="touchUpInside" id="Any-UD-5GL"/>
                                 </connections>
-                            </slider>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Chosen Record" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HTf-Nw-g3i">
-                                <rect key="frame" x="16" y="92" width="343" height="27.5"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="20"/>
-                                <color key="textColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4YZ-hO-pXz">
+                                <rect key="frame" x="26" y="477" width="323" height="38"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
+                                <state key="normal" title="Delete Current Mix">
+                                    <color key="titleColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="newMixTrapped:" destination="r0Y-2V-6aH" eventType="touchUpInside" id="N8N-9o-BEW"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mix It" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Taw-z0-O4x">
+                                <rect key="frame" x="16" y="98" width="343" height="41"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="30"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gNL-a4-2Qu">
-                                <rect key="frame" x="297" y="237.5" width="62" height="38"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wcf-sg-ffB">
+                                <rect key="frame" x="26" y="329" width="323" height="38"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
-                                <state key="normal" title="Restart">
+                                <state key="normal" title="Play New Mix">
                                     <color key="titleColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="restartTrapped:" destination="4LF-ox-Fbb" eventType="touchUpInside" id="LUa-N4-1vf"/>
+                                    <action selector="playNewMix:" destination="r0Y-2V-6aH" eventType="touchUpInside" id="Qbe-lY-EY7"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L7e-sU-kMV">
-                                <rect key="frame" x="297" y="547" width="62" height="38"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
-                                <state key="normal" title="Restart">
-                                    <color key="titleColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="restartNewRecord:" destination="4LF-ox-Fbb" eventType="touchUpInside" id="sER-Qw-tZS"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XGn-hF-6mC">
-                                <rect key="frame" x="32" y="613" width="311" height="38"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fT4-ev-ECB">
+                                <rect key="frame" x="26" y="403" width="323" height="38"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
                                 <state key="normal" title="Save ">
                                     <color key="titleColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="saveNewRecord:" destination="4LF-ox-Fbb" eventType="touchUpInside" id="XXZ-1e-LYh"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SDl-xO-YYB">
-                                <rect key="frame" x="227" y="307" width="132" height="38"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
-                                <state key="normal" title="Cut and Merge">
-                                    <color key="titleColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="cutAndMerge:" destination="4LF-ox-Fbb" eventType="touchUpInside" id="cQ1-hN-lmy"/>
+                                    <action selector="saveNewMix:" destination="r0Y-2V-6aH" eventType="touchUpInside" id="Zjs-rD-lSn"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="Sly-xf-diQ" firstAttribute="leading" secondItem="8Hv-Wi-lqZ" secondAttribute="leading" constant="16" id="0F1-cM-Bic"/>
-                            <constraint firstItem="HTf-Nw-g3i" firstAttribute="top" secondItem="HIf-6U-ZUY" secondAttribute="bottom" constant="26" id="1na-Z8-3g6"/>
-                            <constraint firstItem="8Hv-Wi-lqZ" firstAttribute="trailing" secondItem="gSX-gw-2oD" secondAttribute="trailing" constant="16" id="27z-5v-dgP"/>
-                            <constraint firstItem="ylQ-Rg-J1I" firstAttribute="centerX" secondItem="0BD-iH-mcL" secondAttribute="centerX" id="2s9-dk-GKZ"/>
-                            <constraint firstItem="8Hv-Wi-lqZ" firstAttribute="trailing" secondItem="VSc-X9-wSl" secondAttribute="trailing" constant="16" id="6HL-Tk-RHi"/>
-                            <constraint firstItem="t6U-25-mHY" firstAttribute="leading" secondItem="8Hv-Wi-lqZ" secondAttribute="leading" constant="16" id="6K9-wc-7pS"/>
-                            <constraint firstItem="L7e-sU-kMV" firstAttribute="top" secondItem="t6U-25-mHY" secondAttribute="bottom" constant="32" id="8l5-Q2-3PH"/>
-                            <constraint firstItem="8Hv-Wi-lqZ" firstAttribute="trailing" secondItem="HTf-Nw-g3i" secondAttribute="trailing" constant="16" id="BZ8-DO-Qzc"/>
-                            <constraint firstItem="v3c-Qg-geO" firstAttribute="centerX" secondItem="0BD-iH-mcL" secondAttribute="centerX" id="C3W-HP-ty8"/>
-                            <constraint firstItem="KXS-5k-5fl" firstAttribute="top" secondItem="t6U-25-mHY" secondAttribute="bottom" constant="32" id="CwH-04-95c"/>
-                            <constraint firstItem="8Hv-Wi-lqZ" firstAttribute="trailing" secondItem="gNL-a4-2Qu" secondAttribute="trailing" constant="16" id="FUJ-9K-Hig"/>
-                            <constraint firstItem="t6U-25-mHY" firstAttribute="centerX" secondItem="0BD-iH-mcL" secondAttribute="centerX" id="HVG-RP-g9Z"/>
-                            <constraint firstItem="XGn-hF-6mC" firstAttribute="leading" secondItem="8Hv-Wi-lqZ" secondAttribute="leading" constant="32" id="JFX-On-0W3"/>
-                            <constraint firstItem="8Hv-Wi-lqZ" firstAttribute="trailing" secondItem="JJK-1Q-jGd" secondAttribute="trailing" constant="16" id="M3i-iD-z5L"/>
-                            <constraint firstItem="HIf-6U-ZUY" firstAttribute="leading" secondItem="8Hv-Wi-lqZ" secondAttribute="leading" constant="16" id="MnH-nk-CHJ"/>
-                            <constraint firstItem="8Hv-Wi-lqZ" firstAttribute="trailing" secondItem="SDl-xO-YYB" secondAttribute="trailing" constant="16" id="PNn-A0-xJf"/>
-                            <constraint firstItem="v3c-Qg-geO" firstAttribute="top" secondItem="VSc-X9-wSl" secondAttribute="bottom" constant="32" id="QTa-IF-djL"/>
-                            <constraint firstItem="HIf-6U-ZUY" firstAttribute="top" secondItem="8Hv-Wi-lqZ" secondAttribute="top" constant="8" id="R98-PX-wSb"/>
-                            <constraint firstItem="t6U-25-mHY" firstAttribute="top" secondItem="Sly-xf-diQ" secondAttribute="bottom" constant="8" id="SWn-1u-muZ"/>
-                            <constraint firstItem="HTf-Nw-g3i" firstAttribute="leading" secondItem="8Hv-Wi-lqZ" secondAttribute="leading" constant="16" id="TP3-7v-My9"/>
-                            <constraint firstItem="t6U-25-mHY" firstAttribute="top" secondItem="Drf-t1-kNp" secondAttribute="bottom" constant="8" id="Twv-7D-ez2"/>
-                            <constraint firstItem="8Hv-Wi-lqZ" firstAttribute="trailing" secondItem="Drf-t1-kNp" secondAttribute="trailing" constant="16" id="XTi-jc-z2H"/>
-                            <constraint firstItem="8Hv-Wi-lqZ" firstAttribute="trailing" secondItem="t6U-25-mHY" secondAttribute="trailing" constant="16" id="Xt5-Wp-rMd"/>
-                            <constraint firstItem="KXS-5k-5fl" firstAttribute="leading" secondItem="8Hv-Wi-lqZ" secondAttribute="leading" constant="16" id="Z84-LO-c2p"/>
-                            <constraint firstItem="t6U-25-mHY" firstAttribute="top" secondItem="gSX-gw-2oD" secondAttribute="bottom" constant="56" id="Zvo-IW-cv6"/>
-                            <constraint firstItem="gNL-a4-2Qu" firstAttribute="top" secondItem="VSc-X9-wSl" secondAttribute="bottom" constant="32" id="axn-R2-Tuc"/>
-                            <constraint firstItem="VSc-X9-wSl" firstAttribute="top" secondItem="HTf-Nw-g3i" secondAttribute="bottom" constant="56" id="bnf-a0-pR8"/>
-                            <constraint firstItem="VSc-X9-wSl" firstAttribute="top" secondItem="PUH-dO-0Zy" secondAttribute="bottom" constant="8" id="cNJ-jL-mic"/>
-                            <constraint firstItem="gSX-gw-2oD" firstAttribute="leading" secondItem="8Hv-Wi-lqZ" secondAttribute="leading" constant="16" id="cNp-AU-rSd"/>
-                            <constraint firstItem="8Hv-Wi-lqZ" firstAttribute="bottom" secondItem="XGn-hF-6mC" secondAttribute="bottom" constant="16" id="eMX-fz-EJt"/>
-                            <constraint firstItem="VSc-X9-wSl" firstAttribute="leading" secondItem="8Hv-Wi-lqZ" secondAttribute="leading" constant="16" id="mF1-Po-2Yn"/>
-                            <constraint firstItem="gSX-gw-2oD" firstAttribute="top" secondItem="mew-zb-g4G" secondAttribute="bottom" constant="56" id="mH5-JM-tUc"/>
-                            <constraint firstItem="KEa-Lp-9bC" firstAttribute="top" secondItem="VSc-X9-wSl" secondAttribute="bottom" constant="32" id="oCy-ab-aa6"/>
-                            <constraint firstItem="PUH-dO-0Zy" firstAttribute="leading" secondItem="8Hv-Wi-lqZ" secondAttribute="leading" constant="16" id="oRd-tp-n7T"/>
-                            <constraint firstItem="mew-zb-g4G" firstAttribute="top" secondItem="KEa-Lp-9bC" secondAttribute="bottom" constant="32" id="pVj-l3-zQc"/>
-                            <constraint firstItem="8Hv-Wi-lqZ" firstAttribute="trailing" secondItem="XGn-hF-6mC" secondAttribute="trailing" constant="32" id="pf8-yt-98i"/>
-                            <constraint firstItem="SDl-xO-YYB" firstAttribute="top" secondItem="gNL-a4-2Qu" secondAttribute="bottom" constant="32" id="pfK-o0-NQE"/>
-                            <constraint firstItem="VSc-X9-wSl" firstAttribute="top" secondItem="JJK-1Q-jGd" secondAttribute="bottom" constant="8" id="puj-1c-vqP"/>
-                            <constraint firstItem="ylQ-Rg-J1I" firstAttribute="top" secondItem="t6U-25-mHY" secondAttribute="bottom" constant="32" id="rIs-f8-DFh"/>
-                            <constraint firstItem="VSc-X9-wSl" firstAttribute="centerX" secondItem="0BD-iH-mcL" secondAttribute="centerX" id="t8H-kF-vOL"/>
-                            <constraint firstItem="mew-zb-g4G" firstAttribute="leading" secondItem="8Hv-Wi-lqZ" secondAttribute="leading" constant="16" id="tRj-bd-hCh"/>
-                            <constraint firstItem="KEa-Lp-9bC" firstAttribute="leading" secondItem="8Hv-Wi-lqZ" secondAttribute="leading" constant="16" id="v2q-AW-d3Z"/>
-                            <constraint firstItem="8Hv-Wi-lqZ" firstAttribute="trailing" secondItem="L7e-sU-kMV" secondAttribute="trailing" constant="16" id="wgd-3h-8Am"/>
-                            <constraint firstItem="HTf-Nw-g3i" firstAttribute="centerX" secondItem="0BD-iH-mcL" secondAttribute="centerX" id="x4O-3r-JwG"/>
-                            <constraint firstItem="gSX-gw-2oD" firstAttribute="centerX" secondItem="0BD-iH-mcL" secondAttribute="centerX" id="znK-dS-Yok"/>
+                            <constraint firstItem="wcf-sg-ffB" firstAttribute="leading" secondItem="7u7-xR-Pew" secondAttribute="leading" constant="26" id="1KI-Su-oSa"/>
+                            <constraint firstItem="7u7-xR-Pew" firstAttribute="trailing" secondItem="fT4-ev-ECB" secondAttribute="trailing" constant="26" id="2CO-GQ-Tp8"/>
+                            <constraint firstItem="fT4-ev-ECB" firstAttribute="top" secondItem="wcf-sg-ffB" secondAttribute="bottom" constant="36" id="B8f-74-Lh6"/>
+                            <constraint firstItem="iju-ec-7Y9" firstAttribute="top" secondItem="dvm-Gg-tv9" secondAttribute="bottom" constant="36" id="Cf9-Tn-AFV"/>
+                            <constraint firstItem="7u7-xR-Pew" firstAttribute="trailing" secondItem="wcf-sg-ffB" secondAttribute="trailing" constant="26" id="Epy-PX-sei"/>
+                            <constraint firstItem="Taw-z0-O4x" firstAttribute="centerX" secondItem="ndH-sE-4Mw" secondAttribute="centerX" id="Ges-D9-A5r"/>
+                            <constraint firstItem="7u7-xR-Pew" firstAttribute="trailing" secondItem="4YZ-hO-pXz" secondAttribute="trailing" constant="26" id="Kf7-NJ-VK4"/>
+                            <constraint firstItem="4YZ-hO-pXz" firstAttribute="top" secondItem="fT4-ev-ECB" secondAttribute="bottom" constant="36" id="Na8-8D-Ptu"/>
+                            <constraint firstItem="iju-ec-7Y9" firstAttribute="leading" secondItem="7u7-xR-Pew" secondAttribute="leading" constant="26" id="RHE-rN-62V"/>
+                            <constraint firstItem="66s-lh-3NX" firstAttribute="leading" secondItem="7u7-xR-Pew" secondAttribute="leading" constant="16" id="Sr0-n7-TNG"/>
+                            <constraint firstItem="dvm-Gg-tv9" firstAttribute="top" secondItem="Taw-z0-O4x" secondAttribute="bottom" constant="42" id="Swd-0G-k5G"/>
+                            <constraint firstItem="dvm-Gg-tv9" firstAttribute="leading" secondItem="7u7-xR-Pew" secondAttribute="leading" constant="26" id="UMT-Vo-kHo"/>
+                            <constraint firstItem="Taw-z0-O4x" firstAttribute="top" secondItem="66s-lh-3NX" secondAttribute="bottom" constant="32" id="W0Y-tR-9n3"/>
+                            <constraint firstItem="wcf-sg-ffB" firstAttribute="top" secondItem="iju-ec-7Y9" secondAttribute="bottom" constant="36" id="ZBr-Wi-hdO"/>
+                            <constraint firstItem="7u7-xR-Pew" firstAttribute="trailing" secondItem="Taw-z0-O4x" secondAttribute="trailing" constant="16" id="cAW-ph-Z2z"/>
+                            <constraint firstItem="fT4-ev-ECB" firstAttribute="leading" secondItem="7u7-xR-Pew" secondAttribute="leading" constant="26" id="iyY-de-ix5"/>
+                            <constraint firstItem="7u7-xR-Pew" firstAttribute="trailing" secondItem="dvm-Gg-tv9" secondAttribute="trailing" constant="26" id="m05-TX-mpb"/>
+                            <constraint firstItem="Taw-z0-O4x" firstAttribute="leading" secondItem="7u7-xR-Pew" secondAttribute="leading" constant="16" id="mbj-YL-Nah"/>
+                            <constraint firstItem="7u7-xR-Pew" firstAttribute="trailing" secondItem="iju-ec-7Y9" secondAttribute="trailing" constant="26" id="nWW-7j-TKl"/>
+                            <constraint firstItem="66s-lh-3NX" firstAttribute="top" secondItem="7u7-xR-Pew" secondAttribute="top" constant="8" id="trz-iw-Ibc"/>
+                            <constraint firstItem="4YZ-hO-pXz" firstAttribute="leading" secondItem="7u7-xR-Pew" secondAttribute="leading" constant="26" id="w7g-h4-e6l"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="8Hv-Wi-lqZ"/>
+                        <viewLayoutGuide key="safeArea" id="7u7-xR-Pew"/>
                     </view>
-                    <connections>
-                        <outlet property="ChosenRecordLabel" destination="HTf-Nw-g3i" id="ICW-ks-hgV"/>
-                        <outlet property="countingTimeLabel" destination="Sly-xf-diQ" id="rLN-XW-YBb"/>
-                        <outlet property="countingTimeRecordChoosen" destination="PUH-dO-0Zy" id="rib-tq-rTV"/>
-                        <outlet property="maximumTimeLabel" destination="Drf-t1-kNp" id="Kt3-Sr-ujH"/>
-                        <outlet property="maximumTimeRecordChoosen" destination="JJK-1Q-jGd" id="Bd6-Th-3Ao"/>
-                        <outlet property="sliderNewRecord" destination="t6U-25-mHY" id="AOW-XI-CGj"/>
-                        <outlet property="topSlider" destination="VSc-X9-wSl" id="iyS-qS-eeF"/>
-                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="CZ9-KN-hKF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vDM-lL-YRH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="61.600000000000001" y="594.15292353823088"/>
+            <point key="canvasLocation" x="-1008" y="601"/>
         </scene>
-        <!--Records List View Controller-->
-        <scene sceneID="mc4-fu-MDd">
+        <!--Records Table View Controller-->
+        <scene sceneID="GAJ-gP-UOJ">
             <objects>
-                <viewController storyboardIdentifier="recordListViewController" id="fFR-rK-2dT" customClass="recordsListViewController" customModule="Mixer" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Y5E-fA-bjb">
+                <viewController storyboardIdentifier="RecordsTableViewController" id="dKU-L2-5gQ" customClass="RecordsTableViewController" customModule="Mixer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="elh-VA-MVv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="vxa-Zd-1rW">
-                                <rect key="frame" x="14" y="168" width="347" height="31"/>
-                                <color key="minimumTrackTintColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="thumbTintColor" red="0.58613795042037964" green="0.68644672632217407" blue="0.91828006505966187" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <action selector="sliderHasMoved:" destination="fFR-rK-2dT" eventType="valueChanged" id="M0V-x1-CKe"/>
-                                </connections>
-                            </slider>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cep-ql-1MH">
-                                <rect key="frame" x="161" y="230" width="52" height="38"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
-                                <state key="normal" title="Pause">
-                                    <color key="titleColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="pause:" destination="fFR-rK-2dT" eventType="touchUpInside" id="bin-zq-lPs"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p0K-2j-zL2">
-                                <rect key="frame" x="307" y="230" width="62" height="38"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
-                                <state key="normal" title="Restart">
-                                    <color key="titleColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="restart:" destination="fFR-rK-2dT" eventType="touchUpInside" id="2Rz-as-afo"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uX9-vI-0uQ">
-                                <rect key="frame" x="312" y="136.5" width="47" height="23.5"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
-                                <color key="textColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H2L-lA-adu">
-                                <rect key="frame" x="16" y="136.5" width="47" height="23.5"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
-                                <color key="textColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vvZ-6k-nVi">
-                                <rect key="frame" x="16" y="28" width="54" height="38"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
-                                <state key="normal" title="Home">
-                                    <color key="titleColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="backHome:" destination="fFR-rK-2dT" eventType="touchUpInside" id="L3d-9r-RaD"/>
-                                </connections>
-                            </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="csT-eL-SNV">
-                                <rect key="frame" x="0.0" y="391" width="375" height="276"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lhb-hY-3N5">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="621"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="276" id="p0y-tB-N8a"/>
-                                </constraints>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="recordCell" id="Ugf-R1-S8a">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="recordListViewController" id="Spr-0F-aaL">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ugf-R1-S8a" id="BYN-dd-M4q">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Spr-0F-aaL" id="SFs-Pg-Ui8">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
-                                    <outlet property="dataSource" destination="fFR-rK-2dT" id="afw-4U-Wxp"/>
-                                    <outlet property="delegate" destination="fFR-rK-2dT" id="Q3k-hF-Zp3"/>
+                                    <outlet property="dataSource" destination="dKU-L2-5gQ" id="NhL-Ld-2Lv"/>
+                                    <outlet property="delegate" destination="dKU-L2-5gQ" id="zJd-nq-vGi"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d5q-xX-yjW">
-                                <rect key="frame" x="16" y="230" width="37" height="38"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N8t-QO-IoM">
+                                <rect key="frame" x="0.0" y="629" width="375" height="38"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
-                                <state key="normal" title="Play">
+                                <state key="normal" title="Back">
                                     <color key="titleColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="Resume:" destination="fFR-rK-2dT" eventType="touchUpInside" id="0au-6c-PBF"/>
+                                    <action selector="backTrapped:" destination="dKU-L2-5gQ" eventType="touchUpInside" id="7yH-8S-2M9"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="p4J-1o-ndu" firstAttribute="trailing" secondItem="vxa-Zd-1rW" secondAttribute="trailing" constant="16" id="1GB-Mg-pFH"/>
-                            <constraint firstItem="vvZ-6k-nVi" firstAttribute="leading" secondItem="p4J-1o-ndu" secondAttribute="leading" constant="16" id="3G0-RR-2su"/>
-                            <constraint firstItem="p4J-1o-ndu" firstAttribute="trailing" secondItem="uX9-vI-0uQ" secondAttribute="trailing" constant="16" id="5HP-Ib-Bl6"/>
-                            <constraint firstItem="vxa-Zd-1rW" firstAttribute="top" secondItem="uX9-vI-0uQ" secondAttribute="bottom" constant="8" id="5YO-mj-vP5"/>
-                            <constraint firstItem="p0K-2j-zL2" firstAttribute="top" secondItem="vxa-Zd-1rW" secondAttribute="bottom" constant="32" id="7C8-JH-DFe"/>
-                            <constraint firstItem="d5q-xX-yjW" firstAttribute="leading" secondItem="p4J-1o-ndu" secondAttribute="leading" constant="16" id="D4W-Gf-EhG"/>
-                            <constraint firstItem="vxa-Zd-1rW" firstAttribute="leading" secondItem="p4J-1o-ndu" secondAttribute="leading" constant="16" id="FNT-eZ-leA"/>
-                            <constraint firstItem="d5q-xX-yjW" firstAttribute="top" secondItem="vxa-Zd-1rW" secondAttribute="bottom" constant="32" id="GN5-jC-t6P"/>
-                            <constraint firstAttribute="trailing" secondItem="csT-eL-SNV" secondAttribute="trailing" id="OR6-OD-sAx"/>
-                            <constraint firstItem="Cep-ql-1MH" firstAttribute="centerX" secondItem="Y5E-fA-bjb" secondAttribute="centerX" id="RHS-ae-W70"/>
-                            <constraint firstItem="vxa-Zd-1rW" firstAttribute="top" secondItem="Y5E-fA-bjb" secondAttribute="topMargin" constant="148" id="dM6-xg-XEy"/>
-                            <constraint firstItem="H2L-lA-adu" firstAttribute="leading" secondItem="p4J-1o-ndu" secondAttribute="leading" constant="16" id="fF0-eA-2VR"/>
-                            <constraint firstItem="vvZ-6k-nVi" firstAttribute="top" secondItem="p4J-1o-ndu" secondAttribute="top" constant="8" id="iAY-j3-i1P"/>
-                            <constraint firstItem="p4J-1o-ndu" firstAttribute="trailing" secondItem="p0K-2j-zL2" secondAttribute="trailing" constant="6" id="klL-gg-G4j"/>
-                            <constraint firstItem="vxa-Zd-1rW" firstAttribute="centerX" secondItem="Y5E-fA-bjb" secondAttribute="centerX" id="m5Z-vl-8h4"/>
-                            <constraint firstAttribute="bottom" secondItem="csT-eL-SNV" secondAttribute="bottom" id="rK4-n3-zOD"/>
-                            <constraint firstItem="csT-eL-SNV" firstAttribute="leading" secondItem="Y5E-fA-bjb" secondAttribute="leading" id="tsH-fi-rXe"/>
-                            <constraint firstItem="vxa-Zd-1rW" firstAttribute="top" secondItem="H2L-lA-adu" secondAttribute="bottom" constant="8" id="wIc-Cu-qRZ"/>
-                            <constraint firstItem="Cep-ql-1MH" firstAttribute="top" secondItem="vxa-Zd-1rW" secondAttribute="bottom" constant="32" id="ytr-u2-hd2"/>
+                            <constraint firstItem="N8t-QO-IoM" firstAttribute="bottom" secondItem="6ch-gk-ePv" secondAttribute="bottom" id="0GX-zC-1hc"/>
+                            <constraint firstItem="lhb-hY-3N5" firstAttribute="leading" secondItem="6ch-gk-ePv" secondAttribute="leading" id="Mgs-mA-bWQ"/>
+                            <constraint firstItem="lhb-hY-3N5" firstAttribute="trailing" secondItem="6ch-gk-ePv" secondAttribute="trailing" id="aCG-tM-qVp"/>
+                            <constraint firstItem="lhb-hY-3N5" firstAttribute="top" secondItem="elh-VA-MVv" secondAttribute="top" id="fG9-WU-6Af"/>
+                            <constraint firstItem="N8t-QO-IoM" firstAttribute="leading" secondItem="6ch-gk-ePv" secondAttribute="leading" id="mha-qI-MhI"/>
+                            <constraint firstItem="N8t-QO-IoM" firstAttribute="top" secondItem="lhb-hY-3N5" secondAttribute="bottom" constant="8" id="n6i-8P-FpA"/>
+                            <constraint firstItem="N8t-QO-IoM" firstAttribute="trailing" secondItem="6ch-gk-ePv" secondAttribute="trailing" id="oIi-ph-vb3"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="p4J-1o-ndu"/>
+                        <viewLayoutGuide key="safeArea" id="6ch-gk-ePv"/>
                     </view>
                     <connections>
-                        <outlet property="countingTime" destination="H2L-lA-adu" id="k9b-Qt-N6o"/>
-                        <outlet property="maximumTimeRecord" destination="uX9-vI-0uQ" id="xyE-93-F7U"/>
-                        <outlet property="recordsTableView" destination="csT-eL-SNV" id="tNJ-Wo-bSl"/>
-                        <outlet property="sliderTimeRecord" destination="vxa-Zd-1rW" id="ezk-uT-vUa"/>
+                        <outlet property="recordsListTableView" destination="lhb-hY-3N5" id="SdP-Rb-0JJ"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="L7I-AB-vNA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qxU-sm-Sbf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="61.600000000000001" y="-136.28185907046478"/>
-        </scene>
-        <!--Record View Controller-->
-        <scene sceneID="wty-ye-3wU">
-            <objects>
-                <viewController storyboardIdentifier="recordViewController" id="Tav-jd-G4V" customClass="recordViewController" customModule="Mixer" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="nIn-0u-3k3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q4v-v2-AtO">
-                                <rect key="frame" x="16" y="591" width="343" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="9LX-8X-sC7"/>
-                                    <constraint firstAttribute="width" constant="343" id="uRf-Bp-3GH"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="AvenirNext-Italic" family="Avenir Next" pointSize="50"/>
-                                <color key="textColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="6bm-Uv-set">
-                                <rect key="frame" x="91.5" y="285.5" width="192" height="96"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WMl-sc-dv8">
-                                        <rect key="frame" x="0.0" y="0.0" width="96" height="96"/>
-                                        <state key="normal" image="pause"/>
-                                        <connections>
-                                            <action selector="stopRecord:" destination="Tav-jd-G4V" eventType="touchUpInside" id="Ek5-To-fci"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ocj-20-uey">
-                                        <rect key="frame" x="96" y="0.0" width="96" height="96"/>
-                                        <state key="normal" image="record"/>
-                                        <connections>
-                                            <action selector="startRecording:" destination="Tav-jd-G4V" eventType="touchUpInside" id="Mxr-BF-miV"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                            </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qyJ-ZY-RO4">
-                                <rect key="frame" x="16" y="28" width="54" height="38"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
-                                <state key="normal" title="Home">
-                                    <color key="titleColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="homePage:" destination="Tav-jd-G4V" eventType="touchUpInside" id="Cww-OQ-9iu"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y9a-yk-bi2">
-                                <rect key="frame" x="254" y="28" width="105" height="38"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
-                                <state key="normal" title="Records List">
-                                    <color key="titleColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="recordsList:" destination="Tav-jd-G4V" eventType="touchUpInside" id="Yz4-Tk-7e0"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstItem="6bm-Uv-set" firstAttribute="centerX" secondItem="nIn-0u-3k3" secondAttribute="centerX" id="2WB-Xy-3ne"/>
-                            <constraint firstItem="Y9a-yk-bi2" firstAttribute="top" secondItem="3Q4-dP-aR4" secondAttribute="top" constant="8" id="8lm-5A-HVb"/>
-                            <constraint firstItem="qyJ-ZY-RO4" firstAttribute="top" secondItem="3Q4-dP-aR4" secondAttribute="top" constant="8" id="9H1-vD-lBz"/>
-                            <constraint firstItem="qyJ-ZY-RO4" firstAttribute="leading" secondItem="3Q4-dP-aR4" secondAttribute="leading" constant="16" id="Akb-tn-85W"/>
-                            <constraint firstItem="3Q4-dP-aR4" firstAttribute="trailing" secondItem="Q4v-v2-AtO" secondAttribute="trailing" constant="16" id="Fec-wr-RSv"/>
-                            <constraint firstItem="6bm-Uv-set" firstAttribute="centerY" secondItem="nIn-0u-3k3" secondAttribute="centerY" id="bLu-um-pC7"/>
-                            <constraint firstItem="Q4v-v2-AtO" firstAttribute="leading" secondItem="3Q4-dP-aR4" secondAttribute="leading" constant="16" id="bf8-Bw-9pI"/>
-                            <constraint firstItem="3Q4-dP-aR4" firstAttribute="trailing" secondItem="Y9a-yk-bi2" secondAttribute="trailing" constant="16" id="djZ-Ej-2vk"/>
-                            <constraint firstItem="3Q4-dP-aR4" firstAttribute="bottom" secondItem="Q4v-v2-AtO" secondAttribute="bottom" constant="36" id="nY8-wh-X9a"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="3Q4-dP-aR4"/>
-                    </view>
-                    <connections>
-                        <outlet property="timeLabel" destination="Q4v-v2-AtO" id="yXR-kA-XHV"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iTJ-xF-QgL" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="62" y="-849"/>
+            <point key="canvasLocation" x="-2" y="-136"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="pause" width="96" height="96"/>
-        <image name="record" width="96" height="96"/>
-    </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="UqI-Mp-V05"/>
+        <segue reference="sB9-nf-ycZ"/>
     </inferredMetricsTieBreakers>
 </document>
