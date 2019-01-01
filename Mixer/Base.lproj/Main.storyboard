@@ -532,7 +532,7 @@
                         <viewLayoutGuide key="safeArea" id="6ch-gk-ePv"/>
                     </view>
                     <connections>
-                        <outlet property="recordsListTableView" destination="lhb-hY-3N5" id="SdP-Rb-0JJ"/>
+                        <outlet property="recordsListTableView" destination="lhb-hY-3N5" id="mK9-Yb-qPZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qxU-sm-Sbf" userLabel="First Responder" sceneMemberID="firstResponder"/>

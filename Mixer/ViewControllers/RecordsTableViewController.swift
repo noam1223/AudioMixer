@@ -13,7 +13,8 @@ import IQAudioRecorderController
 
 class RecordsTableViewController: UIViewController, UITableViewDelegate ,UITableViewDataSource, IQAudioCropperViewControllerDelegate {
     
-
+    
+    @IBOutlet weak var recordsListTableView: UITableView!
     
     func audioCropperController(_ controller: IQAudioCropperViewController, didFinishWithAudioAtPath filePath: String) {
         print("finished")
@@ -26,7 +27,6 @@ class RecordsTableViewController: UIViewController, UITableViewDelegate ,UITable
     }
     
     
-    @IBOutlet weak var recordsListTableView: UITableView!
     let recordListPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("recording.plist")
     var recordPlist = [audioMixer]()
     
@@ -77,25 +77,27 @@ class RecordsTableViewController: UIViewController, UITableViewDelegate ,UITable
     }
     
      func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         let name = recordPlist[indexPath.row].name!
-        let path = downLoadSound(name: name)
-        var croppNow = IQAudioCropperViewController(filePath: path.path)
+        let path = self.downLoadSound(name: name)
+        let croppNow = IQAudioCropperViewController(filePath: path.path)
         croppNow.delegate = self
         croppNow.title = name
         croppNow.barStyle = UIBarStyle.default
         self.presentBlurredAudioCropperViewControllerAnimated(croppNow)
     }
 
-    /*
+    
     // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+            let name = recordPlist[indexPath.row].name!
+            deleteSound(name: name)
+            recordPlist.remove(at: indexPath.row)
+            saveRecords(recordList: recordPlist)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            recordsListTableView.reloadData()
+        }
     }
-    */
 }
 

@@ -94,4 +94,17 @@ extension UIViewController{
         return newfile as URL
     }
     
+    func deleteSound(name:String){
+        let storageRef = Storage.storage().reference()
+        let fileName = "/\(name).m4a"
+        let imagesRef = storageRef.child("upload").child(fileName)
+        imagesRef.delete { (err) in
+            if let err = err{
+                self.displayAlert(title: "Delete", message: "Can not delete this file")
+            } else{
+                print("SUCCESS")
+            }
+        }
+    }
+    
 }
