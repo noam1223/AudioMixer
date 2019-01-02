@@ -10,12 +10,26 @@ import UIKit
 import FirebaseAuth
 import FirebaseStorage
 import IQAudioRecorderController
+import CoreLocation
 
 
-class mainViewController: UIViewController, IQAudioRecorderViewControllerDelegate {
+class mainViewController: UIViewController, IQAudioRecorderViewControllerDelegate, CLLocationManagerDelegate {
     
     let recordListPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("recording.plist")
     var recordPlist = [audioMixer]()
+    let locationManager = CLLocationManager()
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let location = locations[locations.count - 1]
+        if location.horizontalAccuracy > 0{
+            locationManager.stopUpdatingLocation()
+            print("longitud:\(location.coordinate.longitude), latitued\(location.coordinate.latitude)")
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
+    }
     
     
     func userWantToSaveRecord(filePath:String) {
@@ -77,6 +91,10 @@ class mainViewController: UIViewController, IQAudioRecorderViewControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         recordPlist = loadRecords()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        locationManager.requestWhenInUseAuthorization()
+        
     }
 }
 

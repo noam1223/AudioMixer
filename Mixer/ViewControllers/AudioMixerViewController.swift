@@ -42,35 +42,45 @@ class AudioMixerViewController: UIViewController, IQAudioCropperViewControllerDe
     @IBAction func mergeTrapped(_ sender: UIButton) {
         if Shared.shared.companyName != nil{
             firstMergeDetected = true
-            let audioCut = downLoadSound(name: Shared.shared.companyName!)
-            let newAudioPath = getURLforMemo(fileName: "newAudio")
-            let composition = AVMutableComposition()
-            guard let compositionAudioTrack = composition.addMutableTrack(withMediaType: AVMediaType.audio, preferredTrackID: kCMPersistentTrackID_Invalid)
-                else{return}
-        
-            compositionAudioTrack.append(url: newAudioPath as URL)
-            compositionAudioTrack.append(url: audioCut)
-        
-        
-            if FileManager.default.fileExists(atPath: newAudioPath.path!){
-                try! FileManager.default.removeItem(at: newAudioPath as URL)
-                print("deleted")
-            }
-        
-            if let assetExport = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetAppleM4A) {
-                assetExport.outputFileType = AVFileType.m4a
-                assetExport.outputURL = newAudioPath as URL
-                assetExport.exportAsynchronously(completionHandler: {
-                    print("Done")
-                    self.recordURL = newAudioPath as URL
-                if FileManager.default.fileExists(atPath: audioCut.path){
-                    try! FileManager.default.removeItem(at: audioCut)
-                    print("AUDIOCUT REMOVED")
+            let storageRef = Storage.storage().reference()
+            let fileName = "/\(Shared.shared.companyName!).m4a"
+            let fileUrl = getURLforMemo(fileName: fileName) as URL
+            let recordRef = storageRef.child("upload").child(fileName)
+            let newAudioPath = getURLforMemo(fileName: "newAudio") as URL
+            let downloadTast = recordRef.getData(maxSize: 1 * 1024 * 1024, completion: { (data, error) in
+                if let error = error{
+                    print(error)
+                } else {
+                    if let data = data{
+                        do{
+                            try data.write(to: fileUrl)
+                            self.mergeTwoRecords(fileFromStorage: fileUrl, newFile: newAudioPath)
+                        } catch { print(error) }
+                    }
                 }
             })
         }
     }
-}
+    
+    func mergeTwoRecords(fileFromStorage:URL ,newFile:URL){
+        let composition = AVMutableComposition()
+        guard let compositionAudioTrack = composition.addMutableTrack(withMediaType: AVMediaType.audio, preferredTrackID: kCMPersistentTrackID_Invalid)
+            else{return}
+        compositionAudioTrack.append(url: newFile)
+        compositionAudioTrack.append(url: fileFromStorage)
+        if FileManager.default.fileExists(atPath: newFile.path){
+            try! FileManager.default.removeItem(at: newFile)
+            print("deleted")
+        }
+        if let assetExport = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetAppleM4A) {
+            assetExport.outputFileType = AVFileType.m4a
+            assetExport.outputURL = newFile
+            assetExport.exportAsynchronously(completionHandler: {
+                print("Done")
+                self.recordURL = newFile
+            })
+        }
+    }
     
     @IBAction func chooseRecord(_ sender: UIButton) {
         let popUpList = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "popUpListRecords") as! ChooseRecordPopUpViewController
@@ -122,17 +132,9 @@ class AudioMixerViewController: UIViewController, IQAudioCropperViewControllerDe
     }
 }
 
+
+
 extension AVMutableCompositionTrack {
-//    func append(url: URL, duration:CMTime) {
-//        let newAsset = AVURLAsset(url: url)
-//        let range = CMTimeRangeMake(kCMTimeZero, duration)
-//        let end = timeRange.end
-//        print(end)
-//        if let track = newAsset.tracks(withMediaType: AVMediaType.audio).first {
-//            try! insertTimeRange(range, of: track, at: end)
-//        }
-//    }
-    
     func append(url: URL) {
         let newAsset = AVURLAsset(url: url)
         let range = CMTimeRangeMake(kCMTimeZero, newAsset.duration)

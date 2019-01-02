@@ -72,27 +72,6 @@ extension UIViewController{
         }
     }
     
-    func downLoadSound(name:String) -> URL {
-        let storageRef = Storage.storage().reference()
-        let fileName = "/\(name).m4a"
-        let imagesRef = storageRef.child("upload").child(fileName)
-        let newfile = getURLforMemo(fileName: name)
-        let uploadTask = imagesRef.getData(maxSize: 10 * 1024 * 1024) { (data, error) in
-            if let error = error {
-                print(error) } else {
-                if let d = data {
-                    do {
-                        try d.write(to: newfile as URL)
-                        
-                    } catch {
-                        print(error)
-                        
-                    }
-                }
-            }
-        }
-        return newfile as URL
-    }
     
     func deleteSound(name:String){
         let storageRef = Storage.storage().reference()

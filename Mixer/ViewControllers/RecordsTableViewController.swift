@@ -29,6 +29,7 @@ class RecordsTableViewController: UIViewController, UITableViewDelegate ,UITable
     
     let recordListPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("recording.plist")
     var recordPlist:[audioMixer]?
+    let storageRef = Storage.storage().reference()
     
 
     override func viewDidLoad() {
@@ -83,16 +84,30 @@ class RecordsTableViewController: UIViewController, UITableViewDelegate ,UITable
      func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let name = recordPlist![indexPath.row].name!
-        let path = self.downLoadSound(name: name)
-        let croppNow = IQAudioCropperViewController(filePath: path.path)
-        croppNow.delegate = self
-        croppNow.title = name
-        croppNow.barStyle = UIBarStyle.default
-        self.presentBlurredAudioCropperViewControllerAnimated(croppNow)
+        let fileName = "/\(name).m4a"
+        let recordRef = storageRef.child("upload").child(fileName)
+        let newfile = getURLforMemo(fileName: name) as URL
+        let downloadTask = recordRef.getData(maxSize: 10 * 1024 * 1024) { (data, error) in
+            if let error = error{
+                print(error)
+            } else {
+                if let d = data{
+                    do{
+                        try d.write(to: newfile)
+                        let croppNow = IQAudioCropperViewController(filePath: newfile.path)
+                        croppNow.delegate = self
+                        croppNow.title = name
+                        croppNow.barStyle = UIBarStyle.default
+                        self.presentBlurredAudioCropperViewControllerAnimated(croppNow)
+                    } catch {
+                        print(error)
+                    }
+                }
+            }
+        }
     }
 
     
-    // Override to support editing the table view.
      func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let name = recordPlist![indexPath.row].name!

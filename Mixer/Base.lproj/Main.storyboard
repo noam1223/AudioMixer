@@ -6,6 +6,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -24,7 +25,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AudioMixer App" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DlQ-kD-V39">
-                                <rect key="frame" x="126.5" y="323" width="121" height="21"/>
+                                <rect key="frame" x="127" y="323" width="121" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -237,13 +238,13 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="t17-6Y-s2Q">
-                                <rect key="frame" x="32" y="269" width="311" height="128"/>
+                                <rect key="frame" x="32" y="269.5" width="311" height="128"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="128" id="ZZg-9I-WD6"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h0e-L9-b9S">
-                                <rect key="frame" x="133.5" y="429" width="108" height="38"/>
+                                <rect key="frame" x="133.5" y="429.5" width="108" height="38"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
                                 <state key="normal" title="Start Record">
                                     <color key="titleColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -253,7 +254,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CuZ-hT-2DL">
-                                <rect key="frame" x="152" y="499" width="71" height="38"/>
+                                <rect key="frame" x="152" y="499.5" width="71" height="38"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
                                 <state key="normal" title="Records">
                                     <color key="titleColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -264,7 +265,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="46j-vH-4c0">
-                                <rect key="frame" x="156" y="569" width="64" height="38"/>
+                                <rect key="frame" x="155.5" y="569.5" width="64" height="38"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
                                 <state key="normal" title="Do Mix">
                                     <color key="titleColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -377,7 +378,7 @@
         <scene sceneID="HKo-qX-8ec">
             <objects>
                 <viewController id="r0Y-2V-6aH" customClass="AudioMixerViewController" customModule="Mixer" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="ndH-sE-4Mw">
+                    <view key="view" contentMode="scaleToFill" id="ndH-sE-4Mw" userLabel="MainView">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -391,96 +392,155 @@
                                     <action selector="backTrapped:" destination="r0Y-2V-6aH" eventType="touchUpInside" id="yos-TM-XGT"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dvm-Gg-tv9">
-                                <rect key="frame" x="26" y="181" width="323" height="38"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
-                                <state key="normal" title="Choose Record">
-                                    <color key="titleColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="chooseRecord:" destination="r0Y-2V-6aH" eventType="touchUpInside" id="64p-5n-wE6"/>
-                                    <segue destination="ciO-NE-Hag" kind="popoverPresentation" popoverAnchorView="dvm-Gg-tv9" id="tv7-Ke-mMd">
-                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                    </segue>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iju-ec-7Y9">
-                                <rect key="frame" x="26" y="255" width="323" height="38"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
-                                <state key="normal" title="Merge Record to Mix">
-                                    <color key="titleColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="mergeTrapped:" destination="r0Y-2V-6aH" eventType="touchUpInside" id="Any-UD-5GL"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4YZ-hO-pXz">
-                                <rect key="frame" x="26" y="477" width="323" height="38"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
-                                <state key="normal" title="Delete Current Mix">
-                                    <color key="titleColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="newMixTrapped:" destination="r0Y-2V-6aH" eventType="touchUpInside" id="N8N-9o-BEW"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mix It" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Taw-z0-O4x">
                                 <rect key="frame" x="16" y="98" width="343" height="41"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="30"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wcf-sg-ffB">
-                                <rect key="frame" x="26" y="329" width="323" height="38"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
-                                <state key="normal" title="Play New Mix">
-                                    <color key="titleColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="playNewMix:" destination="r0Y-2V-6aH" eventType="touchUpInside" id="Qbe-lY-EY7"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fT4-ev-ECB">
-                                <rect key="frame" x="26" y="403" width="323" height="38"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
-                                <state key="normal" title="Save ">
-                                    <color key="titleColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="saveNewMix:" destination="r0Y-2V-6aH" eventType="touchUpInside" id="Zjs-rD-lSn"/>
-                                </connections>
-                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nw7-f7-hhP" userLabel="SubAndPlayView">
+                                <rect key="frame" x="0.0" y="155" width="375" height="512"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FAj-sY-4lQ" userLabel="TopAndMergeView">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="171"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="via-gG-y1J" userLabel="ChooseRecordView">
+                                                <rect key="frame" x="0.0" y="0.0" width="187.5" height="170.5"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BfT-6E-fi0">
+                                                        <rect key="frame" x="16" y="66.5" width="155.5" height="38"/>
+                                                        <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
+                                                        <state key="normal" title="Choose Record">
+                                                            <color key="titleColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="chooseRecord:" destination="r0Y-2V-6aH" eventType="touchUpInside" id="SEL-b7-CVp"/>
+                                                            <segue destination="ciO-NE-Hag" kind="show" id="3HS-WS-AK9"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstItem="BfT-6E-fi0" firstAttribute="leading" secondItem="via-gG-y1J" secondAttribute="leading" constant="16" id="9QW-jH-63M"/>
+                                                    <constraint firstItem="BfT-6E-fi0" firstAttribute="centerY" secondItem="via-gG-y1J" secondAttribute="centerY" id="Tzn-Yb-NYy"/>
+                                                    <constraint firstAttribute="trailing" secondItem="BfT-6E-fi0" secondAttribute="trailing" constant="16" id="itB-m6-ghP"/>
+                                                </constraints>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SIC-kH-ssz">
+                                                <rect key="frame" x="203.5" y="66.5" width="155.5" height="38"/>
+                                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
+                                                <state key="normal" title="Merge">
+                                                    <color key="titleColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="mergeTrapped:" destination="r0Y-2V-6aH" eventType="touchUpInside" id="zYn-KR-yqz"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="SIC-kH-ssz" firstAttribute="centerY" secondItem="FAj-sY-4lQ" secondAttribute="centerY" id="DTu-3R-Oze"/>
+                                            <constraint firstItem="SIC-kH-ssz" firstAttribute="leading" secondItem="via-gG-y1J" secondAttribute="trailing" constant="16" id="DYT-k3-bhs"/>
+                                            <constraint firstItem="via-gG-y1J" firstAttribute="top" secondItem="FAj-sY-4lQ" secondAttribute="top" id="HKX-qU-msd"/>
+                                            <constraint firstAttribute="trailing" secondItem="via-gG-y1J" secondAttribute="trailing" multiplier="2:1" id="JTZ-GN-VnR"/>
+                                            <constraint firstAttribute="bottom" secondItem="via-gG-y1J" secondAttribute="bottom" id="Lir-nm-cD6"/>
+                                            <constraint firstAttribute="trailing" secondItem="SIC-kH-ssz" secondAttribute="trailing" constant="16" id="yrY-20-DV6"/>
+                                            <constraint firstItem="via-gG-y1J" firstAttribute="leading" secondItem="FAj-sY-4lQ" secondAttribute="leading" id="zAN-y2-dgY"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gbm-nR-KeD" userLabel="MiddleAndDeleteMixView">
+                                        <rect key="frame" x="0.0" y="170.5" width="375" height="171"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j2T-uE-ccs" userLabel="SaveMixView">
+                                                <rect key="frame" x="0.0" y="0.0" width="187.5" height="171"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sju-bB-KaH">
+                                                        <rect key="frame" x="16" y="67" width="155.5" height="38"/>
+                                                        <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
+                                                        <state key="normal" title="Save Mix">
+                                                            <color key="titleColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="saveNewMix:" destination="r0Y-2V-6aH" eventType="touchUpInside" id="bBu-MJ-jnt"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstItem="sju-bB-KaH" firstAttribute="centerY" secondItem="j2T-uE-ccs" secondAttribute="centerY" id="0SX-hl-gEc"/>
+                                                    <constraint firstItem="sju-bB-KaH" firstAttribute="leading" secondItem="j2T-uE-ccs" secondAttribute="leading" constant="16" id="KHd-VH-8tO"/>
+                                                    <constraint firstAttribute="trailing" secondItem="sju-bB-KaH" secondAttribute="trailing" constant="16" id="UAe-KS-tV0"/>
+                                                </constraints>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tnh-VF-uUy">
+                                                <rect key="frame" x="203.5" y="67" width="155.5" height="38"/>
+                                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
+                                                <state key="normal" title="Delete Mix">
+                                                    <color key="titleColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="newMixTrapped:" destination="r0Y-2V-6aH" eventType="touchUpInside" id="L3Q-ci-ldv"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="j2T-uE-ccs" firstAttribute="leading" secondItem="gbm-nR-KeD" secondAttribute="leading" id="48Q-mL-ZxX"/>
+                                            <constraint firstItem="j2T-uE-ccs" firstAttribute="top" secondItem="gbm-nR-KeD" secondAttribute="top" id="Hep-AK-foD"/>
+                                            <constraint firstAttribute="trailing" secondItem="j2T-uE-ccs" secondAttribute="trailing" multiplier="2:1" id="Uqh-o7-Nia"/>
+                                            <constraint firstAttribute="trailing" secondItem="tnh-VF-uUy" secondAttribute="trailing" constant="16" id="dHh-9w-egx"/>
+                                            <constraint firstAttribute="bottom" secondItem="j2T-uE-ccs" secondAttribute="bottom" id="dN6-bU-sT1"/>
+                                            <constraint firstItem="tnh-VF-uUy" firstAttribute="leading" secondItem="j2T-uE-ccs" secondAttribute="trailing" constant="16" id="pW6-JF-EfC"/>
+                                            <constraint firstItem="tnh-VF-uUy" firstAttribute="centerY" secondItem="gbm-nR-KeD" secondAttribute="centerY" id="qSr-aZ-car"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ctu-2S-WPd">
+                                        <rect key="frame" x="32" y="373.5" width="311" height="102.5"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="19"/>
+                                        <state key="normal" title="Play">
+                                            <color key="titleColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="playNewMix:" destination="r0Y-2V-6aH" eventType="touchUpInside" id="9IO-EH-noZ"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="gbm-nR-KeD" secondAttribute="trailing" id="0Nr-EV-1rw"/>
+                                    <constraint firstAttribute="trailing" secondItem="ctu-2S-WPd" secondAttribute="trailing" constant="32" id="5zF-y7-7VJ"/>
+                                    <constraint firstItem="ctu-2S-WPd" firstAttribute="leading" secondItem="nw7-f7-hhP" secondAttribute="leading" constant="32" id="BfH-03-nge"/>
+                                    <constraint firstItem="FAj-sY-4lQ" firstAttribute="top" secondItem="nw7-f7-hhP" secondAttribute="top" id="E5b-zX-4bv"/>
+                                    <constraint firstAttribute="bottom" secondItem="ctu-2S-WPd" secondAttribute="bottom" constant="36" id="Efs-EI-GdL"/>
+                                    <constraint firstItem="FAj-sY-4lQ" firstAttribute="leading" secondItem="nw7-f7-hhP" secondAttribute="leading" id="JUn-Ds-MX2"/>
+                                    <constraint firstItem="gbm-nR-KeD" firstAttribute="top" secondItem="FAj-sY-4lQ" secondAttribute="bottom" id="OWH-ZH-PfU"/>
+                                    <constraint firstAttribute="bottom" secondItem="gbm-nR-KeD" secondAttribute="bottom" multiplier="3:2" id="RRI-db-75V"/>
+                                    <constraint firstAttribute="trailing" secondItem="FAj-sY-4lQ" secondAttribute="trailing" id="US4-d5-Zjn"/>
+                                    <constraint firstItem="gbm-nR-KeD" firstAttribute="leading" secondItem="nw7-f7-hhP" secondAttribute="leading" id="Uf3-nq-9x5"/>
+                                    <constraint firstAttribute="bottom" secondItem="FAj-sY-4lQ" secondAttribute="bottom" multiplier="3" id="e95-pi-tXe"/>
+                                    <constraint firstItem="ctu-2S-WPd" firstAttribute="top" secondItem="gbm-nR-KeD" secondAttribute="bottom" constant="32" id="vj0-Ii-y9A"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="wcf-sg-ffB" firstAttribute="leading" secondItem="7u7-xR-Pew" secondAttribute="leading" constant="26" id="1KI-Su-oSa"/>
-                            <constraint firstItem="7u7-xR-Pew" firstAttribute="trailing" secondItem="fT4-ev-ECB" secondAttribute="trailing" constant="26" id="2CO-GQ-Tp8"/>
-                            <constraint firstItem="fT4-ev-ECB" firstAttribute="top" secondItem="wcf-sg-ffB" secondAttribute="bottom" constant="36" id="B8f-74-Lh6"/>
-                            <constraint firstItem="iju-ec-7Y9" firstAttribute="top" secondItem="dvm-Gg-tv9" secondAttribute="bottom" constant="36" id="Cf9-Tn-AFV"/>
-                            <constraint firstItem="7u7-xR-Pew" firstAttribute="trailing" secondItem="wcf-sg-ffB" secondAttribute="trailing" constant="26" id="Epy-PX-sei"/>
+                            <constraint firstItem="7u7-xR-Pew" firstAttribute="bottom" secondItem="nw7-f7-hhP" secondAttribute="bottom" id="8Qc-z4-Tef"/>
                             <constraint firstItem="Taw-z0-O4x" firstAttribute="centerX" secondItem="ndH-sE-4Mw" secondAttribute="centerX" id="Ges-D9-A5r"/>
-                            <constraint firstItem="7u7-xR-Pew" firstAttribute="trailing" secondItem="4YZ-hO-pXz" secondAttribute="trailing" constant="26" id="Kf7-NJ-VK4"/>
-                            <constraint firstItem="4YZ-hO-pXz" firstAttribute="top" secondItem="fT4-ev-ECB" secondAttribute="bottom" constant="36" id="Na8-8D-Ptu"/>
-                            <constraint firstItem="iju-ec-7Y9" firstAttribute="leading" secondItem="7u7-xR-Pew" secondAttribute="leading" constant="26" id="RHE-rN-62V"/>
+                            <constraint firstItem="nw7-f7-hhP" firstAttribute="top" secondItem="Taw-z0-O4x" secondAttribute="bottom" constant="16" id="Krb-Te-Ggg"/>
                             <constraint firstItem="66s-lh-3NX" firstAttribute="leading" secondItem="7u7-xR-Pew" secondAttribute="leading" constant="16" id="Sr0-n7-TNG"/>
-                            <constraint firstItem="dvm-Gg-tv9" firstAttribute="top" secondItem="Taw-z0-O4x" secondAttribute="bottom" constant="42" id="Swd-0G-k5G"/>
-                            <constraint firstItem="dvm-Gg-tv9" firstAttribute="leading" secondItem="7u7-xR-Pew" secondAttribute="leading" constant="26" id="UMT-Vo-kHo"/>
+                            <constraint firstItem="nw7-f7-hhP" firstAttribute="leading" secondItem="7u7-xR-Pew" secondAttribute="leading" id="TG2-uR-UOm"/>
                             <constraint firstItem="Taw-z0-O4x" firstAttribute="top" secondItem="66s-lh-3NX" secondAttribute="bottom" constant="32" id="W0Y-tR-9n3"/>
-                            <constraint firstItem="wcf-sg-ffB" firstAttribute="top" secondItem="iju-ec-7Y9" secondAttribute="bottom" constant="36" id="ZBr-Wi-hdO"/>
                             <constraint firstItem="7u7-xR-Pew" firstAttribute="trailing" secondItem="Taw-z0-O4x" secondAttribute="trailing" constant="16" id="cAW-ph-Z2z"/>
-                            <constraint firstItem="fT4-ev-ECB" firstAttribute="leading" secondItem="7u7-xR-Pew" secondAttribute="leading" constant="26" id="iyY-de-ix5"/>
-                            <constraint firstItem="7u7-xR-Pew" firstAttribute="trailing" secondItem="dvm-Gg-tv9" secondAttribute="trailing" constant="26" id="m05-TX-mpb"/>
+                            <constraint firstItem="7u7-xR-Pew" firstAttribute="trailing" secondItem="nw7-f7-hhP" secondAttribute="trailing" id="gfD-Xk-SMq"/>
                             <constraint firstItem="Taw-z0-O4x" firstAttribute="leading" secondItem="7u7-xR-Pew" secondAttribute="leading" constant="16" id="mbj-YL-Nah"/>
-                            <constraint firstItem="7u7-xR-Pew" firstAttribute="trailing" secondItem="iju-ec-7Y9" secondAttribute="trailing" constant="26" id="nWW-7j-TKl"/>
                             <constraint firstItem="66s-lh-3NX" firstAttribute="top" secondItem="7u7-xR-Pew" secondAttribute="top" constant="8" id="trz-iw-Ibc"/>
-                            <constraint firstItem="4YZ-hO-pXz" firstAttribute="leading" secondItem="7u7-xR-Pew" secondAttribute="leading" constant="26" id="w7g-h4-e6l"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7u7-xR-Pew"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vDM-lL-YRH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1008" y="601"/>
+            <point key="canvasLocation" x="-1008.8" y="600.44977511244383"/>
         </scene>
         <!--Records Table View Controller-->
         <scene sceneID="GAJ-gP-UOJ">
