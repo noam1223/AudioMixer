@@ -28,13 +28,16 @@ class RecordsTableViewController: UIViewController, UITableViewDelegate ,UITable
     
     
     let recordListPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("recording.plist")
-    var recordPlist = [audioMixer]()
+    var recordPlist:[audioMixer]?
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         recordPlist = loadRecords()
         recordsListTableView.delegate = self
+        recordsListTableView.rowHeight = 70.0
+        recordsListTableView.separatorStyle = .none
+        recordsListTableView.backgroundColor = UIColor.flatGray
     }
     
     func userWantToSaveRecord(filePath:String) {
@@ -42,8 +45,8 @@ class RecordsTableViewController: UIViewController, UITableViewDelegate ,UITable
         
         let alert = UIAlertController(title: "Save", message: "Do you want to save the record?", preferredStyle: .alert)
         let action1 = UIAlertAction(title: "Yes", style: .default) { (yesAction) in
-            self.recordPlist.append(audioMixer(name: newTextField.text!))
-            self.saveRecords(recordList: self.recordPlist)
+            self.recordPlist?.append(audioMixer(name: newTextField.text!))
+            self.saveRecords(recordList: self.recordPlist!)
             self.uploadSound(localFile: URL.init(fileURLWithPath: filePath)  ,name: newTextField.text!)
         }
         
@@ -62,23 +65,24 @@ class RecordsTableViewController: UIViewController, UITableViewDelegate ,UITable
 
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return recordPlist.count
+        return (recordPlist?.count)!
     }
 
     
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "recordListViewController", for: indexPath)
-        cell.textLabel?.text = recordPlist[indexPath.row].name!
-        if let color = FlatMint().darken(byPercentage: (CGFloat(indexPath.row) / CGFloat(recordPlist.count))){
+        cell.textLabel?.text = recordPlist?[indexPath.row].name
+        if let color = FlatMint().darken(byPercentage: (CGFloat(indexPath.row) / CGFloat((recordPlist?.count)!))){
             cell.backgroundColor = color
             cell.textLabel?.textColor = ContrastColorOf(color, returnFlat: true)
         }
+
         return cell
     }
     
      func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let name = recordPlist[indexPath.row].name!
+        let name = recordPlist![indexPath.row].name!
         let path = self.downLoadSound(name: name)
         let croppNow = IQAudioCropperViewController(filePath: path.path)
         croppNow.delegate = self
@@ -91,10 +95,10 @@ class RecordsTableViewController: UIViewController, UITableViewDelegate ,UITable
     // Override to support editing the table view.
      func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let name = recordPlist[indexPath.row].name!
+            let name = recordPlist![indexPath.row].name!
             deleteSound(name: name)
-            recordPlist.remove(at: indexPath.row)
-            saveRecords(recordList: recordPlist)
+            recordPlist?.remove(at: indexPath.row)
+            saveRecords(recordList: recordPlist!)
             tableView.deleteRows(at: [indexPath], with: .automatic)
             recordsListTableView.reloadData()
         }

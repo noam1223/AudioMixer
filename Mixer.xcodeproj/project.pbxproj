@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B0EF54621DBE1AE001F29A0 /* ShareRecordsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0EF54521DBE1AE001F29A0 /* ShareRecordsCell.swift */; };
+		1B0EF54821DBE2D5001F29A0 /* sharedMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0EF54721DBE2D5001F29A0 /* sharedMixer.swift */; };
 		1B47EEBB21C02AC5004C76CE /* ChooseRecordPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B47EEBA21C02AC5004C76CE /* ChooseRecordPopUpViewController.swift */; };
 		1B47EEBD21C0FF82004C76CE /* recordForIndexPathRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B47EEBC21C0FF82004C76CE /* recordForIndexPathRow.swift */; };
 		1B5292FD21B4284C0060C592 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5292FC21B4284C0060C592 /* AppDelegate.swift */; };
@@ -26,6 +28,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1B0EF54521DBE1AE001F29A0 /* ShareRecordsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareRecordsCell.swift; sourceTree = "<group>"; };
+		1B0EF54721DBE2D5001F29A0 /* sharedMixer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sharedMixer.swift; sourceTree = "<group>"; };
 		1B47EEBA21C02AC5004C76CE /* ChooseRecordPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseRecordPopUpViewController.swift; sourceTree = "<group>"; };
 		1B47EEBC21C0FF82004C76CE /* recordForIndexPathRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = recordForIndexPathRow.swift; sourceTree = "<group>"; };
 		1B5292F921B4284C0060C592 /* Mixer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mixer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -97,6 +101,8 @@
 				1B5292FC21B4284C0060C592 /* AppDelegate.swift */,
 				1B834CA421D0CC8E0022D222 /* AudioMixerHelper.swift */,
 				1B52930021B4284C0060C592 /* Main.storyboard */,
+				1B0EF54721DBE2D5001F29A0 /* sharedMixer.swift */,
+				1B0EF54521DBE1AE001F29A0 /* ShareRecordsCell.swift */,
 				1B47EEBC21C0FF82004C76CE /* recordForIndexPathRow.swift */,
 				1B52930621B4284C0060C592 /* Assets.xcassets */,
 				1B52930821B4284C0060C592 /* LaunchScreen.storyboard */,
@@ -266,6 +272,8 @@
 				1B5292FF21B4284C0060C592 /* mainViewController.swift in Sources */,
 				1B52930521B4284C0060C592 /* Mixer.xcdatamodeld in Sources */,
 				1B47EEBB21C02AC5004C76CE /* ChooseRecordPopUpViewController.swift in Sources */,
+				1B0EF54621DBE1AE001F29A0 /* ShareRecordsCell.swift in Sources */,
+				1B0EF54821DBE2D5001F29A0 /* sharedMixer.swift in Sources */,
 				1B834C9C21CF89500022D222 /* LoginOrSignupViewController.swift in Sources */,
 				1B5292FD21B4284C0060C592 /* AppDelegate.swift in Sources */,
 				1B834CA121CF8C750022D222 /* SignUpViewController.swift in Sources */,

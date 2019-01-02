@@ -30,7 +30,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } catch let error as NSError {
             print("AVAudioSession configuration error:\(error.localizedDescription)")
         }
+        self.splashScreen()
         return true
+    }
+    
+    private func splashScreen(){
+        let launchScreenVC = UIStoryboard.init(name: "LaunchScreen", bundle: nil)
+            .instantiateViewController(withIdentifier: "launchScreen")
+        self.window?.rootViewController = launchScreenVC
+        self.window?.makeKeyAndVisible()
+        Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(dissmisSplashScreen), userInfo: nil, repeats: false)
+    }
+    
+    @objc func dissmisSplashScreen(){
+        let mainVC = UIStoryboard.init(name: "Main", bundle: nil)
+            .instantiateViewController(withIdentifier: "mainStoryBoard")
+        self.window?.rootViewController = mainVC
+        self.window?.makeKeyAndVisible()
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
