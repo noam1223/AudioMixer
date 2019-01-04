@@ -62,6 +62,7 @@ class AudioMixerViewController: UIViewController, IQAudioCropperViewControllerDe
         }
     }
     
+    
     func mergeTwoRecords(fileFromStorage:URL ,newFile:URL){
         let composition = AVMutableComposition()
         guard let compositionAudioTrack = composition.addMutableTrack(withMediaType: AVMediaType.audio, preferredTrackID: kCMPersistentTrackID_Invalid)
@@ -103,11 +104,10 @@ class AudioMixerViewController: UIViewController, IQAudioCropperViewControllerDe
         }
     }
     
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        print(Shared.shared.companyName)
+    override func viewDidLoad() {
+        super.viewDidLoad()
         recordPlist = loadRecords()
+        
     }
 
     func userWantToSaveRecord(filePath:String) {

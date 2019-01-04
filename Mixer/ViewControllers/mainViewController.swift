@@ -19,24 +19,11 @@ class mainViewController: UIViewController, IQAudioRecorderViewControllerDelegat
     var recordPlist = [audioMixer]()
     let locationManager = CLLocationManager()
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let location = locations[locations.count - 1]
-        if location.horizontalAccuracy > 0{
-            locationManager.stopUpdatingLocation()
-            print("longitud:\(location.coordinate.longitude), latitued\(location.coordinate.latitude)")
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error)
-    }
-    
-    
     func userWantToSaveRecord(filePath:String) {
         var newTextField = UITextField()
         
-        let alert = UIAlertController(title: "Save", message: "Do you want to save the record?", preferredStyle: .alert)
-        let action1 = UIAlertAction(title: "Yes", style: .default) { (yesAction) in
+        let alert = UIAlertController(title: "Save", message: "Would you like to save the record?", preferredStyle: .alert)
+        let action1 = UIAlertAction(title: "Yes", style: .default) { (action) in
             self.recordPlist.append(audioMixer(name: newTextField.text!))
             self.saveRecords(recordList: self.recordPlist)
             self.uploadSound(localFile: URL.init(fileURLWithPath: filePath)  ,name: newTextField.text!)
@@ -91,11 +78,69 @@ class mainViewController: UIViewController, IQAudioRecorderViewControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         recordPlist = loadRecords()
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestAlwaysAuthorization()
+        if CLLocationManager.locationServicesEnabled(){
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        let location = locations[locations.count - 1]
+//        print("longitud:\(location.coordinate.longitude), latitued\(location.coordinate.latitude)")
+//
+//
+//    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
+    }
+    
+    func getAddress(){
+        
+        var longitud:CLLocationDegrees = (self.locationManager.location?.coordinate.longitude)!
+        var latitude:CLLocationDegrees = (self.locationManager.location?.coordinate.latitude)!
+        var location = CLLocation(latitude: latitude, longitude: longitud)
+        
+        CLGeocoder().reverseGeocodeLocation(location) { (placemarks, error) in
+            if let error = error{
+                print(error)
+            }
+            
+            if (placemarks?.count)! > 0 {
+                let place = placemarks?.last as! CLPlacemark!
+                let address = (place?.thoroughfare)!
+            }
+            
+        }
         
     }
+    
+    
+    
+    
+    
+//
+//    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+//        if (status == CLAuthorizationStatus.denied){
+//            let alert = UIAlertController(title: "Background Location Access Disabled",
+//                                          message: "In order to save record with your location we need your permission",
+//                                          preferredStyle: .alert)
+//            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+//            let openSettingsAction = UIAlertAction(title: "Open Settings", style: .default, handler: { (action) in
+//                if let url = URL(string: UIApplicationOpenSettingsURLString){
+//                    UIApplication.shared.open(url, options: [:], completionHandler: { (action) in
+//                        UIApplication.shared.
+//                    })
+//                }
+//            })
+//            alert.addAction(cancelAction)
+//            alert.addAction(openSettingsAction)
+//            self.present(alert, animated: true, completion: nil)
+//        }
+//    }
+    
 }
 
 
