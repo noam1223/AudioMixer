@@ -11,13 +11,12 @@ import UIKit
 
 class sharedRecord{
     
-    var name:String
+    var userName:String
     var mixName:String
     var numberOfLikes:Int = 0
     
-    init(name:String, mixName:String) {
-        self.name = name
+    init(userName:String, mixName:String) {
+        self.userName = userName
         self.mixName = mixName
     }
-    
 }

@@ -20,11 +20,11 @@ final class Shared {
 class audioMixer: Codable{
     
     let name:String!
-    //let address:String!
+    let address:String!
     
-    init(name:String) {
+    init(name:String, address:String) {
         self.name = name
-        //self.address = address
+        self.address = address
     }
 }
 

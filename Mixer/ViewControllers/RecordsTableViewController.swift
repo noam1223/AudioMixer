@@ -10,8 +10,11 @@ import UIKit
 import FirebaseStorage
 import ChameleonFramework
 import IQAudioRecorderController
+import CoreLocation
+import SVProgressHUD
 
-class RecordsTableViewController: UIViewController, UITableViewDelegate ,UITableViewDataSource, IQAudioCropperViewControllerDelegate {
+class RecordsTableViewController: UIViewController, UITableViewDelegate ,UITableViewDataSource, IQAudioCropperViewControllerDelegate,
+                                    CLLocationManagerDelegate {
     
     
     @IBOutlet weak var recordsListTableView: UITableView!
@@ -28,8 +31,10 @@ class RecordsTableViewController: UIViewController, UITableViewDelegate ,UITable
     
     
     let recordListPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("recording.plist")
-    var recordPlist:[audioMixer]?
+    var recordPlist:[audioMixer]!
     let storageRef = Storage.storage().reference()
+    let locationManager = CLLocationManager()
+
     
 
     override func viewDidLoad() {
@@ -43,12 +48,21 @@ class RecordsTableViewController: UIViewController, UITableViewDelegate ,UITable
     
     func userWantToSaveRecord(filePath:String) {
         var newTextField = UITextField()
+        var longitud:CLLocationDegrees = (self.locationManager.location?.coordinate.longitude)!
+        var latitude:CLLocationDegrees = (self.locationManager.location?.coordinate.latitude)!
         
         let alert = UIAlertController(title: "Save", message: "Do you want to save the record?", preferredStyle: .alert)
-        let action1 = UIAlertAction(title: "Yes", style: .default) { (yesAction) in
-            self.recordPlist?.append(audioMixer(name: newTextField.text!))
-            self.saveRecords(recordList: self.recordPlist!)
-            self.uploadSound(localFile: URL.init(fileURLWithPath: filePath)  ,name: newTextField.text!)
+        let action1 = UIAlertAction(title: "Yes", style: .default) { (action) in
+            SVProgressHUD.show()
+            self.getAddress(longitude: longitud, latitude: latitude) { (address) in
+                self.recordPlist.append(audioMixer(name: newTextField.text!, address: address!))
+                self.saveRecords(recordList: self.recordPlist)
+                self.uploadSound(localFile: URL.init(fileURLWithPath: filePath)  ,name: newTextField.text!)
+                self.locationManager.stopUpdatingLocation()
+                SVProgressHUD.dismiss()
+                self.recordsListTableView.reloadData()
+                self.displayAlert(title: "Saved", message: "record saved successfuly")
+            }
         }
         
         let action2 = UIAlertAction(title: "No", style: .cancel, handler: nil)
@@ -61,19 +75,20 @@ class RecordsTableViewController: UIViewController, UITableViewDelegate ,UITable
         alert.addAction(action2)
         present(alert, animated: true, completion: nil)
     }
+    
+
 
     // MARK: - Table view data source
 
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return (recordPlist?.count)!
+        return recordPlist.count
     }
 
     
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "recordListViewController", for: indexPath)
-        cell.textLabel?.text = recordPlist?[indexPath.row].name
-        if let color = FlatMint().darken(byPercentage: (CGFloat(indexPath.row) / CGFloat((recordPlist?.count)!))){
+        cell.textLabel?.text = recordPlist[indexPath.row].name + "/" + recordPlist[indexPath.row].address
+        if let color = FlatMint().darken(byPercentage: (CGFloat(indexPath.row) / CGFloat(recordPlist.count))){
             cell.backgroundColor = color
             cell.textLabel?.textColor = ContrastColorOf(color, returnFlat: true)
         }
@@ -83,7 +98,7 @@ class RecordsTableViewController: UIViewController, UITableViewDelegate ,UITable
     
      func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let name = recordPlist![indexPath.row].name!
+        let name = recordPlist[indexPath.row].name!
         let fileName = "/\(name).m4a"
         let recordRef = storageRef.child("upload").child(fileName)
         let newfile = getURLforMemo(fileName: name) as URL
@@ -110,10 +125,10 @@ class RecordsTableViewController: UIViewController, UITableViewDelegate ,UITable
     
      func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let name = recordPlist![indexPath.row].name!
+            let name = recordPlist[indexPath.row].name!
             deleteSound(name: name)
-            recordPlist?.remove(at: indexPath.row)
-            saveRecords(recordList: recordPlist!)
+            recordPlist.remove(at: indexPath.row)
+            saveRecords(recordList: recordPlist)
             tableView.deleteRows(at: [indexPath], with: .automatic)
             recordsListTableView.reloadData()
         }

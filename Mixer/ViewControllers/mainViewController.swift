@@ -11,6 +11,7 @@ import FirebaseAuth
 import FirebaseStorage
 import IQAudioRecorderController
 import CoreLocation
+import SVProgressHUD
 
 
 class mainViewController: UIViewController, IQAudioRecorderViewControllerDelegate, CLLocationManagerDelegate {
@@ -18,31 +19,42 @@ class mainViewController: UIViewController, IQAudioRecorderViewControllerDelegat
     let recordListPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("recording.plist")
     var recordPlist = [audioMixer]()
     let locationManager = CLLocationManager()
+
+    
+    
     
     func userWantToSaveRecord(filePath:String) {
         var newTextField = UITextField()
+        var longitud:CLLocationDegrees = (self.locationManager.location?.coordinate.longitude)!
+        var latitude:CLLocationDegrees = (self.locationManager.location?.coordinate.latitude)!
         
         let alert = UIAlertController(title: "Save", message: "Would you like to save the record?", preferredStyle: .alert)
         let action1 = UIAlertAction(title: "Yes", style: .default) { (action) in
-            self.recordPlist.append(audioMixer(name: newTextField.text!))
-            self.saveRecords(recordList: self.recordPlist)
-            self.uploadSound(localFile: URL.init(fileURLWithPath: filePath)  ,name: newTextField.text!)
+            SVProgressHUD.show()
+            self.getAddress(longitude: longitud, latitude: latitude) { (address) in
+                self.recordPlist.append(audioMixer(name: newTextField.text!, address: address!))
+                self.saveRecords(recordList: self.recordPlist)
+                self.uploadSound(localFile: URL.init(fileURLWithPath: filePath)  ,name: newTextField.text!)
+                self.locationManager.stopUpdatingLocation()
+                SVProgressHUD.dismiss()
+                self.displayAlert(title: "Saved", message: "record saved successfuly")
+                
         }
-        
+    }
         let action2 = UIAlertAction(title: "No", style: .cancel, handler: nil)
         alert.addTextField { (alertTextField) in
             alertTextField.placeholder = "Name it!"
             newTextField = alertTextField
         }
-        
+
         alert.addAction(action1)
         alert.addAction(action2)
+        SVProgressHUD.dismiss()
         present(alert, animated: true, completion: nil)
     }
 
-    
+
     func audioRecorderController(_ controller: IQAudioRecorderViewController, didFinishWithAudioAtPath filePath: String) {
-        print("finished")
         controller.delegate = nil
         controller.dismiss(animated: true, completion: nil)
         userWantToSaveRecord(filePath: filePath)
@@ -60,15 +72,19 @@ class mainViewController: UIViewController, IQAudioRecorderViewControllerDelegat
     }
     
     @IBAction func startRecordViewController(_ sender: UIButton) {
-        var recordNow = IQAudioRecorderViewController()
-        recordNow.delegate = self
-        recordNow.title = "Recorder"
-        recordNow.maximumRecordDuration = 10
-        recordNow.allowCropping = true
-        recordNow.barStyle = UIBarStyle.default
-        //recordNow.normalTintColor = UIColor(ciColor: .magenta)
-        
-        self.presentBlurredAudioRecorderViewControllerAnimated(recordNow)
+        if CLLocationManager.locationServicesEnabled(){
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+            locationManager.startUpdatingLocation()
+            var recordNow = IQAudioRecorderViewController()
+            recordNow.delegate = self
+            recordNow.title = "Recorder"
+            recordNow.maximumRecordDuration = 10
+            recordNow.allowCropping = true
+            recordNow.barStyle = UIBarStyle.default
+            //recordNow.normalTintColor = UIColor(ciColor: .magenta)
+            self.presentBlurredAudioRecorderViewControllerAnimated(recordNow)
+        }
     }
     
     @IBAction func startMix(_ sender: UIButton) {
@@ -78,48 +94,13 @@ class mainViewController: UIViewController, IQAudioRecorderViewControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         recordPlist = loadRecords()
-        locationManager.requestAlwaysAuthorization()
-        if CLLocationManager.locationServicesEnabled(){
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-            locationManager.startUpdatingLocation()
-        }
+        locationManager.requestWhenInUseAuthorization()
+
     }
-    
-//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        let location = locations[locations.count - 1]
-//        print("longitud:\(location.coordinate.longitude), latitued\(location.coordinate.latitude)")
-//
-//
-//    }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
     }
-    
-    func getAddress(){
-        
-        var longitud:CLLocationDegrees = (self.locationManager.location?.coordinate.longitude)!
-        var latitude:CLLocationDegrees = (self.locationManager.location?.coordinate.latitude)!
-        var location = CLLocation(latitude: latitude, longitude: longitud)
-        
-        CLGeocoder().reverseGeocodeLocation(location) { (placemarks, error) in
-            if let error = error{
-                print(error)
-            }
-            
-            if (placemarks?.count)! > 0 {
-                let place = placemarks?.last as! CLPlacemark!
-                let address = (place?.thoroughfare)!
-            }
-            
-        }
-        
-    }
-    
-    
-    
-    
     
 //
 //    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {

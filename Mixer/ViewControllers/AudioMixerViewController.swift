@@ -10,23 +10,43 @@ import UIKit
 import AVKit
 import FirebaseStorage
 import IQAudioRecorderController
+import CoreLocation
+import SVProgressHUD
 
-class AudioMixerViewController: UIViewController, IQAudioCropperViewControllerDelegate {
+class AudioMixerViewController: UIViewController, IQAudioCropperViewControllerDelegate, CLLocationManagerDelegate {
     
     let recordListPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("recording.plist")
     var recordPlist = [audioMixer]()
     var recordURL:URL!
     var firstMergeDetected = false
+    let locationManager = CLLocationManager()
 
     
     func audioCropperController(_ controller: IQAudioCropperViewController, didFinishWithAudioAtPath filePath: String) {
-        print("finished")
         controller.dismiss(animated: true, completion: nil)
         userWantToSaveRecord(filePath: filePath)
     }
 
     @IBAction func backTrapped(_ sender: UIButton) {
-        dismiss(animated: true, completion: nil)
+        if firstMergeDetected{
+            let alert = UIAlertController(title: "Are you sure?", message: "Notice the file will be delete!", preferredStyle: .alert)
+            let action1 = UIAlertAction(title: "Yes", style: .default, handler: { (action) in
+                if FileManager.default.fileExists(atPath: self.recordURL.path){
+                    try! FileManager.default.removeItem(at: self.recordURL)
+                }
+                self.dismiss(animated: true, completion: nil)
+            })
+            let action2 = UIAlertAction(title: "No", style: .cancel, handler: nil)
+            alert.addAction(action1)
+            alert.addAction(action2)
+            present(alert, animated: true, completion: nil)
+                } else {
+                    let newAudioPath = getURLforMemo(fileName: "newAudio") as URL
+                    if FileManager.default.fileExists(atPath: newAudioPath.path){
+                        try! FileManager.default.removeItem(at: newAudioPath)
+                    }
+        self.dismiss(animated: true, completion: nil)
+        }
     }
     
     @IBAction func playNewMix(_ sender: UIButton) {
@@ -41,7 +61,6 @@ class AudioMixerViewController: UIViewController, IQAudioCropperViewControllerDe
     
     @IBAction func mergeTrapped(_ sender: UIButton) {
         if Shared.shared.companyName != nil{
-            firstMergeDetected = true
             let storageRef = Storage.storage().reference()
             let fileName = "/\(Shared.shared.companyName!).m4a"
             let fileUrl = getURLforMemo(fileName: fileName) as URL
@@ -71,7 +90,6 @@ class AudioMixerViewController: UIViewController, IQAudioCropperViewControllerDe
         compositionAudioTrack.append(url: fileFromStorage)
         if FileManager.default.fileExists(atPath: newFile.path){
             try! FileManager.default.removeItem(at: newFile)
-            print("deleted")
         }
         if let assetExport = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetAppleM4A) {
             assetExport.outputFileType = AVFileType.m4a
@@ -79,6 +97,8 @@ class AudioMixerViewController: UIViewController, IQAudioCropperViewControllerDe
             assetExport.exportAsynchronously(completionHandler: {
                 print("Done")
                 self.recordURL = newFile
+                self.firstMergeDetected = true
+                self.displayAlert(title: "Merge", message: "Merge has complete")
             })
         }
     }
@@ -112,14 +132,21 @@ class AudioMixerViewController: UIViewController, IQAudioCropperViewControllerDe
 
     func userWantToSaveRecord(filePath:String) {
         var newTextField = UITextField()
+        var longitud:CLLocationDegrees = (self.locationManager.location?.coordinate.longitude)!
+        var latitude:CLLocationDegrees = (self.locationManager.location?.coordinate.latitude)!
         
-        let alert = UIAlertController(title: "Save", message: "Do you want to save the record?", preferredStyle: .alert)
-        let action1 = UIAlertAction(title: "Yes", style: .default) { (yesAction) in
-            self.recordPlist.append(audioMixer(name: newTextField.text!))
-            self.saveRecords(recordList: self.recordPlist)
-            self.uploadSound(localFile: URL.init(fileURLWithPath: filePath)  ,name: newTextField.text!)
+        let alert = UIAlertController(title: "Save", message: "Would you like to save the record?", preferredStyle: .alert)
+        let action1 = UIAlertAction(title: "Yes", style: .default) { (action) in
+            SVProgressHUD.show()
+            self.getAddress(longitude: longitud, latitude: latitude) { (address) in
+                self.recordPlist.append(audioMixer(name: newTextField.text!, address: address!))
+                self.saveRecords(recordList: self.recordPlist)
+                self.uploadSound(localFile: URL.init(fileURLWithPath: filePath)  ,name: newTextField.text!)
+                self.locationManager.stopUpdatingLocation()
+                SVProgressHUD.dismiss()
+                self.displayAlert(title: "Saved", message: "record saved successfuly")
+            }
         }
-        
         let action2 = UIAlertAction(title: "No", style: .cancel, handler: nil)
         alert.addTextField { (alertTextField) in
             alertTextField.placeholder = "Name it!"
@@ -128,6 +155,7 @@ class AudioMixerViewController: UIViewController, IQAudioCropperViewControllerDe
         
         alert.addAction(action1)
         alert.addAction(action2)
+        SVProgressHUD.dismiss()
         present(alert, animated: true, completion: nil)
     }
 }

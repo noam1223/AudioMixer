@@ -7,16 +7,14 @@
 //
 
 import UIKit
-import AVFoundation
 
-class ChooseRecordPopUpViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AVAudioPlayerDelegate {
+class ChooseRecordPopUpViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     let recordListPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("recording.plist")
     var recordPlist = [audioMixer]()
 
     @IBOutlet weak var recordsTableView: UITableView!
-    var recordingSession:AVAudioSession!
-    var audioPlayer:AVAudioPlayer!
+
     var numberOfRecords:Int!
 
     @IBAction func ClosePopUpRecordList(_ sender: UIButton) {
@@ -25,7 +23,6 @@ class ChooseRecordPopUpViewController: UIViewController, UITableViewDataSource, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        recordingSession = AVAudioSession.sharedInstance()
         recordPlist = loadRecords()
     }
 
@@ -35,13 +32,12 @@ class ChooseRecordPopUpViewController: UIViewController, UITableViewDataSource, 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "recordsCell", for: indexPath)
-        cell.textLabel?.text = recordPlist[indexPath.row].name
+        cell.textLabel?.text = recordPlist[indexPath.row].name + "/" + recordPlist[indexPath.row].address
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         Shared.shared.companyName = recordPlist[indexPath.row].name
-        print(Shared.shared.companyName)
         dismiss(animated: true, completion: nil)
     }
     

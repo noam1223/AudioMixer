@@ -8,6 +8,7 @@
 import UIKit
 import AVFoundation
 import FirebaseStorage
+import CoreLocation
 
 
 extension UIViewController{
@@ -85,5 +86,31 @@ extension UIViewController{
             }
         }
     }
+    
+    func getAddress(longitude: Double, latitude: Double, comlition:@escaping (_ answer:String?)->Void){
+        let location = CLLocation(latitude: latitude, longitude: longitude)
+        let geo = CLGeocoder()
+        
+        geo.reverseGeocodeLocation(location) { (placemarks, error) in
+            if let error = error{
+                print(error)
+            }
+            
+            if (placemarks?.count)! > 0 {
+                let place = placemarks?.last as CLPlacemark!
+                comlition(self.displayAddress(placemark: place))
+            }
+        }
+        
+    }
+    
+    func displayAddress(placemark:CLPlacemark?) -> String?{
+        if let containPlacemark = placemark{
+            return containPlacemark.thoroughfare!
+        } else{
+            return ""
+        }
+    }
+    
     
 }
