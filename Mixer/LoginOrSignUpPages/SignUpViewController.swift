@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseDatabase
 import SVProgressHUD
 
 class SignUpViewController: UIViewController {
@@ -34,8 +35,16 @@ class SignUpViewController: UIViewController {
                 print(error)
             } else {
                 SVProgressHUD.dismiss()
-                let mixer = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Mixer") as! mainViewController
-                self.present(mixer, animated: true, completion: nil)            }
+                let uid = Auth.auth().currentUser?.uid
+                User.user.firstTimeLoggedIn = true
+                let databaseRF = Database.database().reference()
+                let newUserName = databaseRF.child("Users").child(uid!)
+                let userDictionary = ["userName" : userName, "Email" : email, "Password" : password] as! Dictionary<String,String>
+                newUserName.setValue(userDictionary, withCompletionBlock: {( err, database) in
+                    let mixer = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Mixer") as! mainViewController
+                    self.present(mixer, animated: true, completion: nil)
+                })
+            }
         }
     }
     

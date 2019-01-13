@@ -15,6 +15,14 @@ final class Shared {
     
 }
 
+final class User{
+    static let user = User()
+    
+    var userName:String!
+    var email:String!
+    var password:String!
+    var firstTimeLoggedIn:Bool = false
+}
 
 
 class audioMixer: Codable{

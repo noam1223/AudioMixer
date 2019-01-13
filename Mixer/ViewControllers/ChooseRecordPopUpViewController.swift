@@ -12,11 +12,8 @@ class ChooseRecordPopUpViewController: UIViewController, UITableViewDataSource, 
     
     let recordListPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("recording.plist")
     var recordPlist = [audioMixer]()
-
     @IBOutlet weak var recordsTableView: UITableView!
-
-    var numberOfRecords:Int!
-
+    
     @IBAction func ClosePopUpRecordList(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }

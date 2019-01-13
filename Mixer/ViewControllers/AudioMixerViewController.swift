@@ -64,9 +64,9 @@ class AudioMixerViewController: UIViewController, IQAudioCropperViewControllerDe
             let storageRef = Storage.storage().reference()
             let fileName = "/\(Shared.shared.companyName!).m4a"
             let fileUrl = getURLforMemo(fileName: fileName) as URL
-            let recordRef = storageRef.child("upload").child(fileName)
+            let recordRef = storageRef.child("upload").child(User.user.userName).child(fileName)
             let newAudioPath = getURLforMemo(fileName: "newAudio") as URL
-            let downloadTast = recordRef.getData(maxSize: 1 * 1024 * 1024, completion: { (data, error) in
+            recordRef.getData(maxSize: 1 * 1024 * 1024, completion: { (data, error) in
                 if let error = error{
                     print(error)
                 } else {
@@ -120,7 +120,6 @@ class AudioMixerViewController: UIViewController, IQAudioCropperViewControllerDe
         if firstMergeDetected{
             try! FileManager.default.removeItem(at: recordURL)
             firstMergeDetected = false
-            print("deleted")
         }
     }
     
@@ -140,6 +139,7 @@ class AudioMixerViewController: UIViewController, IQAudioCropperViewControllerDe
             SVProgressHUD.show()
             self.getAddress(longitude: longitud, latitude: latitude) { (address) in
                 self.recordPlist.append(audioMixer(name: newTextField.text!, address: address!))
+                self.saveRecordsAtDatabase(recordsList: self.recordPlist)
                 self.saveRecords(recordList: self.recordPlist)
                 self.uploadSound(localFile: URL.init(fileURLWithPath: filePath)  ,name: newTextField.text!)
                 self.locationManager.stopUpdatingLocation()

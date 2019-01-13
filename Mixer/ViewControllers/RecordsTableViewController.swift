@@ -8,13 +8,46 @@
 
 import UIKit
 import FirebaseStorage
+import FirebaseDatabase
+import FirebaseAuth
 import ChameleonFramework
 import IQAudioRecorderController
 import CoreLocation
 import SVProgressHUD
 
 class RecordsTableViewController: UIViewController, UITableViewDelegate ,UITableViewDataSource, IQAudioCropperViewControllerDelegate,
-                                    CLLocationManagerDelegate {
+CLLocationManagerDelegate, RecordCellDelegate {
+    
+    let recordListPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("recording.plist")
+    var recordPlist:[audioMixer]!
+    let storageRef = Storage.storage().reference()
+
+    let locationManager = CLLocationManager()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        recordPlist = loadRecords()
+        recordsListTableView.delegate = self
+        recordsListTableView.rowHeight = 70.0
+        recordsListTableView.separatorStyle = .none
+        recordsListTableView.backgroundColor = UIColor.flatGray
+    }
+    
+    
+    func didBtnTrapped(name: String) {
+        let recordDB = Database.database().reference().child("RecordsShared")
+        let recordDictionary = ["Sender" : User.user.userName,
+                                "RecordName" : name,
+                                "Likes" : 0] as [String : Any]
+        
+        recordDB.child(User.user.userName).setValue(recordDictionary) { (err, ref) in
+            if let error = err{
+                print(error)
+            } else {
+                print("SUCCESS")
+            }
+        }
+    }
     
     
     @IBOutlet weak var recordsListTableView: UITableView!
@@ -29,23 +62,6 @@ class RecordsTableViewController: UIViewController, UITableViewDelegate ,UITable
         dismiss(animated: true, completion: nil)
     }
     
-    
-    let recordListPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("recording.plist")
-    var recordPlist:[audioMixer]!
-    let storageRef = Storage.storage().reference()
-    let locationManager = CLLocationManager()
-
-    
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        recordPlist = loadRecords()
-        recordsListTableView.delegate = self
-        recordsListTableView.rowHeight = 70.0
-        recordsListTableView.separatorStyle = .none
-        recordsListTableView.backgroundColor = UIColor.flatGray
-    }
-    
     func userWantToSaveRecord(filePath:String) {
         var newTextField = UITextField()
         var longitud:CLLocationDegrees = (self.locationManager.location?.coordinate.longitude)!
@@ -56,6 +72,7 @@ class RecordsTableViewController: UIViewController, UITableViewDelegate ,UITable
             SVProgressHUD.show()
             self.getAddress(longitude: longitud, latitude: latitude) { (address) in
                 self.recordPlist.append(audioMixer(name: newTextField.text!, address: address!))
+                self.saveRecordsAtDatabase(recordsList: self.recordPlist)
                 self.saveRecords(recordList: self.recordPlist)
                 self.uploadSound(localFile: URL.init(fileURLWithPath: filePath)  ,name: newTextField.text!)
                 self.locationManager.stopUpdatingLocation()
@@ -86,11 +103,13 @@ class RecordsTableViewController: UIViewController, UITableViewDelegate ,UITable
 
     
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "recordListViewController", for: indexPath)
-        cell.textLabel?.text = recordPlist[indexPath.row].name + "/" + recordPlist[indexPath.row].address
+        let cell = tableView.dequeueReusableCell(withIdentifier: "listRecordViewController", for: indexPath) as! shareRecordCell
+        let record = recordPlist[indexPath.row]
+        cell.setRecord(records: record)
+        cell.delegate = self
         if let color = FlatMint().darken(byPercentage: (CGFloat(indexPath.row) / CGFloat(recordPlist.count))){
             cell.backgroundColor = color
-            cell.textLabel?.textColor = ContrastColorOf(color, returnFlat: true)
+            cell.recordLabelView?.textColor = ContrastColorOf(color, returnFlat: true)
         }
 
         return cell
@@ -100,7 +119,7 @@ class RecordsTableViewController: UIViewController, UITableViewDelegate ,UITable
         tableView.deselectRow(at: indexPath, animated: true)
         let name = recordPlist[indexPath.row].name!
         let fileName = "/\(name).m4a"
-        let recordRef = storageRef.child("upload").child(fileName)
+        let recordRef = storageRef.child("upload").child(User.user.userName).child(fileName)
         let newfile = getURLforMemo(fileName: name) as URL
         let downloadTask = recordRef.getData(maxSize: 10 * 1024 * 1024) { (data, error) in
             if let error = error{
@@ -128,9 +147,9 @@ class RecordsTableViewController: UIViewController, UITableViewDelegate ,UITable
             let name = recordPlist[indexPath.row].name!
             deleteSound(name: name)
             recordPlist.remove(at: indexPath.row)
+            saveRecordsAtDatabase(recordsList: recordPlist)
             saveRecords(recordList: recordPlist)
             tableView.deleteRows(at: [indexPath], with: .automatic)
-            recordsListTableView.reloadData()
         }
     }
 }

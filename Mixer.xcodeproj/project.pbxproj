@@ -8,9 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		1B0EF54621DBE1AE001F29A0 /* ShareRecordsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0EF54521DBE1AE001F29A0 /* ShareRecordsCell.swift */; };
-		1B0EF54821DBE2D5001F29A0 /* sharedMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0EF54721DBE2D5001F29A0 /* sharedMixer.swift */; };
 		1B47EEBB21C02AC5004C76CE /* ChooseRecordPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B47EEBA21C02AC5004C76CE /* ChooseRecordPopUpViewController.swift */; };
 		1B47EEBD21C0FF82004C76CE /* recordForIndexPathRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B47EEBC21C0FF82004C76CE /* recordForIndexPathRow.swift */; };
+		1B48C36C21E2644F0010652E /* RecordsListShare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B48C36B21E2644F0010652E /* RecordsListShare.swift */; };
+		1B48C36E21E2663D0010652E /* SharedRecordsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B48C36D21E2663D0010652E /* SharedRecordsTableViewController.swift */; };
 		1B5292FD21B4284C0060C592 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5292FC21B4284C0060C592 /* AppDelegate.swift */; };
 		1B5292FF21B4284C0060C592 /* mainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5292FE21B4284C0060C592 /* mainViewController.swift */; };
 		1B52930221B4284C0060C592 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B52930021B4284C0060C592 /* Main.storyboard */; };
@@ -29,9 +30,10 @@
 
 /* Begin PBXFileReference section */
 		1B0EF54521DBE1AE001F29A0 /* ShareRecordsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareRecordsCell.swift; sourceTree = "<group>"; };
-		1B0EF54721DBE2D5001F29A0 /* sharedMixer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sharedMixer.swift; sourceTree = "<group>"; };
 		1B47EEBA21C02AC5004C76CE /* ChooseRecordPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseRecordPopUpViewController.swift; sourceTree = "<group>"; };
 		1B47EEBC21C0FF82004C76CE /* recordForIndexPathRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = recordForIndexPathRow.swift; sourceTree = "<group>"; };
+		1B48C36B21E2644F0010652E /* RecordsListShare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsListShare.swift; sourceTree = "<group>"; };
+		1B48C36D21E2663D0010652E /* SharedRecordsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedRecordsTableViewController.swift; sourceTree = "<group>"; };
 		1B5292F921B4284C0060C592 /* Mixer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mixer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B5292FC21B4284C0060C592 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1B5292FE21B4284C0060C592 /* mainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mainViewController.swift; sourceTree = "<group>"; };
@@ -101,8 +103,9 @@
 				1B5292FC21B4284C0060C592 /* AppDelegate.swift */,
 				1B834CA421D0CC8E0022D222 /* AudioMixerHelper.swift */,
 				1B52930021B4284C0060C592 /* Main.storyboard */,
-				1B0EF54721DBE2D5001F29A0 /* sharedMixer.swift */,
+				1B48C36D21E2663D0010652E /* SharedRecordsTableViewController.swift */,
 				1B0EF54521DBE1AE001F29A0 /* ShareRecordsCell.swift */,
+				1B48C36B21E2644F0010652E /* RecordsListShare.swift */,
 				1B47EEBC21C0FF82004C76CE /* recordForIndexPathRow.swift */,
 				1B52930621B4284C0060C592 /* Assets.xcassets */,
 				1B52930821B4284C0060C592 /* LaunchScreen.storyboard */,
@@ -224,6 +227,7 @@
 				"${BUILT_PRODUCTS_DIR}/IQAudioRecorderController/IQAudioRecorderController.framework",
 				"${BUILT_PRODUCTS_DIR}/SCSiriWaveformView/SCSiriWaveformView.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -234,6 +238,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQAudioRecorderController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SCSiriWaveformView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -266,6 +271,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B48C36C21E2644F0010652E /* RecordsListShare.swift in Sources */,
 				1B834C9F21CF8C630022D222 /* LoginViewController.swift in Sources */,
 				1B612F2721D96E6900B95213 /* RecordsTableViewController.swift in Sources */,
 				1B834CA521D0CC8E0022D222 /* AudioMixerHelper.swift in Sources */,
@@ -273,8 +279,8 @@
 				1B52930521B4284C0060C592 /* Mixer.xcdatamodeld in Sources */,
 				1B47EEBB21C02AC5004C76CE /* ChooseRecordPopUpViewController.swift in Sources */,
 				1B0EF54621DBE1AE001F29A0 /* ShareRecordsCell.swift in Sources */,
-				1B0EF54821DBE2D5001F29A0 /* sharedMixer.swift in Sources */,
 				1B834C9C21CF89500022D222 /* LoginOrSignupViewController.swift in Sources */,
+				1B48C36E21E2663D0010652E /* SharedRecordsTableViewController.swift in Sources */,
 				1B5292FD21B4284C0060C592 /* AppDelegate.swift in Sources */,
 				1B834CA121CF8C750022D222 /* SignUpViewController.swift in Sources */,
 				1B47EEBD21C0FF82004C76CE /* recordForIndexPathRow.swift in Sources */,
