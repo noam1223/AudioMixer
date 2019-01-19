@@ -15,22 +15,23 @@ import IQAudioRecorderController
 import CoreLocation
 import SVProgressHUD
 
-class RecordsTableViewController: UIViewController, UITableViewDelegate ,UITableViewDataSource, IQAudioCropperViewControllerDelegate,
-CLLocationManagerDelegate, RecordCellDelegate {
+class RecordsTableViewController: UIViewController, IQAudioCropperViewControllerDelegate, CLLocationManagerDelegate {
     
-    let recordListPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("recording.plist")
-    var recordPlist:[audioMixer]!
-    let storageRef = Storage.storage().reference()
-
+    var recordPlist:[audioMixer]! = []
     let locationManager = CLLocationManager()
+    @IBOutlet weak var recordsListTableView: UITableView!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        recordPlist = loadRecords()
-        recordsListTableView.delegate = self
-        recordsListTableView.rowHeight = 70.0
-        recordsListTableView.separatorStyle = .none
-        recordsListTableView.backgroundColor = UIColor.flatGray
+        loadRecordsFromDatabase { (recordsList) in
+            self.recordPlist = recordsList
+            self.recordsListTableView.delegate = self
+            self.recordsListTableView.rowHeight = 70.0
+            self.recordsListTableView.separatorStyle = .none
+            self.recordsListTableView.backgroundColor = UIColor.flatGray
+            self.recordsListTableView.reloadData()
+        }
     }
     
     
@@ -41,16 +42,14 @@ CLLocationManagerDelegate, RecordCellDelegate {
                                 "Likes" : 0] as [String : Any]
         
         recordDB.child(User.user.userName).setValue(recordDictionary) { (err, ref) in
-            if let error = err{
-                print(error)
+            if err != nil{
+                self.displayAlert(title: "Error", message: err!.localizedDescription)
             } else {
-                print("SUCCESS")
+                self.displayAlert(title: "Shared", message: "Notice: you can only share one record mix!")
             }
         }
     }
     
-    
-    @IBOutlet weak var recordsListTableView: UITableView!
     
     func audioCropperController(_ controller: IQAudioCropperViewController, didFinishWithAudioAtPath filePath: String) {
         print("finished")
@@ -62,29 +61,30 @@ CLLocationManagerDelegate, RecordCellDelegate {
         dismiss(animated: true, completion: nil)
     }
     
+    
     func userWantToSaveRecord(filePath:String) {
         var newTextField = UITextField()
         var longitud:CLLocationDegrees = (self.locationManager.location?.coordinate.longitude)!
         var latitude:CLLocationDegrees = (self.locationManager.location?.coordinate.latitude)!
         
-        let alert = UIAlertController(title: "Save", message: "Do you want to save the record?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
+        alertInit(alert: alert, title: "Save", message: "Do you want to save the record?")
         let action1 = UIAlertAction(title: "Yes", style: .default) { (action) in
             SVProgressHUD.show()
             self.getAddress(longitude: longitud, latitude: latitude) { (address) in
                 self.recordPlist.append(audioMixer(name: newTextField.text!, address: address!))
                 self.saveRecordsAtDatabase(recordsList: self.recordPlist)
-                self.saveRecords(recordList: self.recordPlist)
-                self.uploadSound(localFile: URL.init(fileURLWithPath: filePath)  ,name: newTextField.text!)
+                self.uploadSound(localFile: URL.init(fileURLWithPath: filePath) ,name: newTextField.text!)
                 self.locationManager.stopUpdatingLocation()
                 SVProgressHUD.dismiss()
                 self.recordsListTableView.reloadData()
-                self.displayAlert(title: "Saved", message: "record saved successfuly")
             }
         }
         
-        let action2 = UIAlertAction(title: "No", style: .cancel, handler: nil)
+        let action2 = UIAlertAction(title: "No", style: .destructive, handler: nil)
+        
         alert.addTextField { (alertTextField) in
-            alertTextField.placeholder = "Name it!"
+            self.alerTextFieldInit(alertTextField: alertTextField)
             newTextField = alertTextField
         }
         
@@ -92,17 +92,21 @@ CLLocationManagerDelegate, RecordCellDelegate {
         alert.addAction(action2)
         present(alert, animated: true, completion: nil)
     }
-    
+}
+
+
 
 
     // MARK: - Table view data source
-
-     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return recordPlist.count
-    }
+extension RecordsTableViewController : UITableViewDelegate, UITableViewDataSource, RecordCellDelegate{
 
     
-     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return recordPlist.count
+    }
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "listRecordViewController", for: indexPath) as! shareRecordCell
         let record = recordPlist[indexPath.row]
         cell.setRecord(records: record)
@@ -111,46 +115,45 @@ CLLocationManagerDelegate, RecordCellDelegate {
             cell.backgroundColor = color
             cell.recordLabelView?.textColor = ContrastColorOf(color, returnFlat: true)
         }
-
+        
         return cell
     }
     
-     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let name = recordPlist[indexPath.row].name!
         let fileName = "/\(name).m4a"
+        let storageRef = Storage.storage().reference()
         let recordRef = storageRef.child("upload").child(User.user.userName).child(fileName)
         let newfile = getURLforMemo(fileName: name) as URL
-        let downloadTask = recordRef.getData(maxSize: 10 * 1024 * 1024) { (data, error) in
+        recordRef.getData(maxSize: 10 * 1024 * 1024) { (data, error) in
             if let error = error{
-                print(error)
+                self.displayAlert(title: "Error", message: error.localizedDescription)
             } else {
-                if let d = data{
+                if let data = data{
                     do{
-                        try d.write(to: newfile)
+                        try data.write(to: newfile)
                         let croppNow = IQAudioCropperViewController(filePath: newfile.path)
                         croppNow.delegate = self
                         croppNow.title = name
                         croppNow.barStyle = UIBarStyle.default
                         self.presentBlurredAudioCropperViewControllerAnimated(croppNow)
                     } catch {
-                        print(error)
+                        self.displayAlert(title: "Error", message: error.localizedDescription)
                     }
                 }
             }
         }
     }
-
     
-     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let name = recordPlist[indexPath.row].name!
             deleteSound(name: name)
             recordPlist.remove(at: indexPath.row)
             saveRecordsAtDatabase(recordsList: recordPlist)
-            saveRecords(recordList: recordPlist)
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
 }
-

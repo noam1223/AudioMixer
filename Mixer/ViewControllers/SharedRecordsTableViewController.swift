@@ -11,21 +11,26 @@ import FirebaseDatabase
 import FirebaseAuth
 import FirebaseStorage
 import IQAudioRecorderController
+import ChameleonFramework
+import SVProgressHUD
 
-class SharedRecordsTableViewController:UIViewController, UITableViewDelegate, UITableViewDataSource, RecordListShareCellDelegate,IQAudioCropperViewControllerDelegate {
+
+class SharedRecordsTableViewController:UIViewController, UITableViewDelegate, UITableViewDataSource, RecordListShareCellDelegate, IQAudioCropperViewControllerDelegate {
     
     var recordShare:[sharedRecord] = []
-
     var recordsLikes:[String] = []
     
     @IBOutlet weak var shareRecordsTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        shareRecordsTableView.delegate = self
-        shareRecordsTableView.rowHeight = 140.0
-        retrieveLikes { (finished) in
+        retrieveLikes { (likeList) in
+            self.recordsLikes = likeList
             self.retrieveRecord(complition: { (finished) in
+                self.shareRecordsTableView.delegate = self
+                self.shareRecordsTableView.rowHeight = 160.0
+                self.shareRecordsTableView.separatorStyle = .none
+                self.shareRecordsTableView.backgroundColor = UIColor.flatGray
                 self.shareRecordsTableView.reloadData()
             })
         }
@@ -43,9 +48,9 @@ class SharedRecordsTableViewController:UIViewController, UITableViewDelegate, UI
         let storageRef = Storage.storage().reference()
         let recordRef = storageRef.child("upload").child(userName).child(fileName)
         let newfile = getURLforMemo(fileName: name) as URL
-        let downloadTask = recordRef.getData(maxSize: 10 * 1024 * 1024) { (data, error) in
+        recordRef.getData(maxSize: 10 * 1024 * 1024) { (data, error) in
             if let error = error{
-                print(error)
+                self.displayAlert(title: "Error", message: error.localizedDescription)
             } else {
                 if let d = data{
                     do{
@@ -56,7 +61,7 @@ class SharedRecordsTableViewController:UIViewController, UITableViewDelegate, UI
                         croppNow.barStyle = UIBarStyle.default
                         self.presentBlurredAudioCropperViewControllerAnimated(croppNow)
                     } catch {
-                        print(error)
+                        self.displayAlert(title: "Error", message: "Please check your internet connection")
                     }
                 }
             }
@@ -84,16 +89,17 @@ class SharedRecordsTableViewController:UIViewController, UITableViewDelegate, UI
     }
     
     
-    func retrieveLikes(complition:@escaping (_ finished:Bool)->Void){
+    func retrieveLikes(complition:@escaping (_ likesList:[String])->Void){
+        var likeslist:[String] = []
         let likeDB = Database.database().reference().child("UsersLike").child(User.user.userName)
         likeDB.observeSingleEvent(of: .value ) { (snapshot) in
             for child in snapshot.children{
                 let snap = child as! DataSnapshot
                 let value = snap.value
-                self.recordsLikes.append(value as! String)
+                likeslist.append(value as! String)
             }
             likeDB.removeAllObservers()
-            complition(true)
+            complition(likeslist)
         }
     }
     
@@ -102,13 +108,14 @@ class SharedRecordsTableViewController:UIViewController, UITableViewDelegate, UI
     func saveLikes(recordShare:sharedRecord){
         let likeDB = Database.database().reference().child("UsersLike").child(User.user.userName)
         likeDB.setValue(recordsLikes) { (err, data) in
+            likeDB.removeAllObservers()
             if let err = err{
-                print("error")
+                self.displayAlert(title: "Error", message: err.localizedDescription)
             } else {
-                likeDB.removeAllObservers()
                 let recordDB = Database.database().reference().child("RecordsShared").child(recordShare.userName)
                 recordDB.updateChildValues(["Likes" : recordShare.numberOfLikes], withCompletionBlock: { (err, data) in
                     recordDB.removeAllObservers()
+                    self.shareRecordsTableView.reloadData()
                 })
             }
         }
@@ -144,15 +151,21 @@ class SharedRecordsTableViewController:UIViewController, UITableViewDelegate, UI
 
     
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SharedRecordsCell", for: indexPath) as! RecordListShare
-        cell.delegate = self
         let newShareRecord = recordShare[indexPath.row]
-        cell.setRecordShared(recordShared: newShareRecord)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SharedRecordsCell", for: indexPath) as! RecordListShare
+        cell.setRecordShared(recordShared: newShareRecord , recordLikes: recordsLikes)
+        cell.delegate = self
+        if let color = FlatMint().darken(byPercentage: (CGFloat(indexPath.row) / CGFloat(recordShare.count))){
+            cell.backgroundColor = color
+            cell.recordNameLabel.textColor = ContrastColorOf(color, returnFlat: true)
+            cell.numberOfLikesLable.textColor = ContrastColorOf(color, returnFlat: true)
+            cell.userNameLabel.textColor = ContrastColorOf(color, returnFlat: true)
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //
+        shareRecordsTableView.deselectRow(at: indexPath, animated: true)
     }
-
+    
 }

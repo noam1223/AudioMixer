@@ -22,7 +22,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcom Audio Mixer " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="08d-1D-vha">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome Audio Mixer " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="08d-1D-vha">
                                 <rect key="frame" x="16" y="208" width="343" height="251"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="343" id="dMg-nW-PDm"/>
@@ -32,10 +32,19 @@
                                 <color key="textColor" red="0.086076445877552032" green="0.7174256443977356" blue="0.50970494747161865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="audioMixerIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Vq2-tP-ss7">
+                                <rect key="frame" x="137" y="56" width="100" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="FXi-vR-Wix"/>
+                                    <constraint firstAttribute="height" constant="80" id="FcF-Ud-RGE"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="08d-1D-vha" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="GhQ-Ed-Ww9"/>
+                            <constraint firstItem="Vq2-tP-ss7" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="36" id="dOZ-KE-RgA"/>
+                            <constraint firstItem="Vq2-tP-ss7" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="gI9-QW-px4"/>
                             <constraint firstItem="08d-1D-vha" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="wG6-4P-A90"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -46,4 +55,7 @@
             <point key="canvasLocation" x="52" y="374.66266866566718"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="audioMixerIcon" width="300" height="300"/>
+    </resources>
 </document>

@@ -15,24 +15,70 @@ import CoreLocation
 import SVProgressHUD
 
 
-class mainViewController: UIViewController, IQAudioRecorderViewControllerDelegate, CLLocationManagerDelegate {
+class AudioMixerMenuViewController: UIViewController, IQAudioRecorderViewControllerDelegate, CLLocationManagerDelegate {
     
-    let recordListPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("recording.plist")
     var recordPlist = [audioMixer]()
     let locationManager = CLLocationManager()
 
-    func loadRecordsFromDatabase(complition:@escaping (_ recordList:[audioMixer])->Void){
-        var recordList = [audioMixer]()
-        let recordDB = Database.database().reference().child("myRecords").child(User.user.userName)
-        recordDB.observe(DataEventType.childAdded) { (snapshot) in
-            let snapshotValue = snapshot.value as! Dictionary<String,String>
-                let recordName = snapshotValue["recordName"] as! String
-                let address = snapshotValue["Address"] as! String
-                recordList.append(audioMixer(name: recordName, address: address))
-            complition(recordList)
+    //Loading the information of the user and download the list of the current user records list
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        loadUserInfo { (_) in
+            self.loadRecordsFromDatabase { (records) in
+                self.recordPlist = records
+                SVProgressHUD.dismiss()
+            }
+        }
+        locationManager.requestWhenInUseAuthorization()
+        
+    }
+
+    
+    @IBAction func logOutTrapped(_ sender: UIButton) {
+        try! Auth.auth().signOut()
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
+    @IBAction func startRecordViewController(_ sender: UIButton) {
+        if CLLocationManager.locationServicesEnabled(){
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+            locationManager.startUpdatingLocation()
+            let recordNow = IQAudioRecorderViewController()
+            recordNow.delegate = self
+            recordNow.title = "Recorder"
+            recordNow.maximumRecordDuration = 10
+            recordNow.allowCropping = true
+            recordNow.barStyle = UIBarStyle.default
+            self.presentBlurredAudioRecorderViewControllerAnimated(recordNow)
         }
     }
     
+    
+    //Moving to the records list of the current user
+    @IBAction func listRecord(_ sender: UIButton) {
+        let listRecord = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "RecordsTableViewController")
+            as! RecordsTableViewController
+        self.present(listRecord, animated: true, completion: nil)
+    }
+    
+    
+    @IBAction func socialMedia(_ sender: UIButton) {
+        let sharedRecords = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "sharedRecordsViewController")
+            as! SharedRecordsTableViewController
+        self.present(sharedRecords, animated: true, completion: nil)
+    }
+    
+    
+    @IBAction func startMix(_ sender: UIButton) {
+        let audioMixer = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "audioMixerViewController")
+            as! AudioMixerViewController
+        self.present(audioMixer, animated: true, completion: nil)
+    }
+    
+    
+    //Loading the user information from the database
     func loadUserInfo(complition:@escaping (_ finished:Bool)->Void){
         let uid = Auth.auth().currentUser?.uid
         let databaseRef = Database.database().reference().child("Users").child(uid!)
@@ -45,31 +91,31 @@ class mainViewController: UIViewController, IQAudioRecorderViewControllerDelegat
         }
     }
     
-    @IBAction func socialMedia(_ sender: UIButton) {
-    }
     
+    //Saving the current record in the database and the upload the record to the storage
     func userWantToSaveRecord(filePath:String) {
         var newTextField = UITextField()
         let longitud:CLLocationDegrees = (self.locationManager.location?.coordinate.longitude)!
         let latitude:CLLocationDegrees = (self.locationManager.location?.coordinate.latitude)!
         
-        let alert = UIAlertController(title: "Save", message: "Would you like to save the record?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
+        alertInit(alert: alert, title: "Save", message: "Would you like to save the record?")
+        
         let action1 = UIAlertAction(title: "Yes", style: .default) { (action) in
             SVProgressHUD.show()
             self.getAddress(longitude: longitud, latitude: latitude) { (address) in
                 self.recordPlist.append(audioMixer(name: newTextField.text!, address: address!))
                 self.saveRecordsAtDatabase(recordsList: self.recordPlist)
-                self.saveRecords(recordList: self.recordPlist)
                 self.uploadSound(localFile: URL.init(fileURLWithPath: filePath)  ,name: newTextField.text!)
                 self.locationManager.stopUpdatingLocation()
                 SVProgressHUD.dismiss()
                 self.displayAlert(title: "Saved", message: "record saved successfuly")
-                
+            }
         }
-    }
-        let action2 = UIAlertAction(title: "No", style: .cancel, handler: nil)
+        
+        let action2 = UIAlertAction(title: "No", style: .destructive, handler: nil)
         alert.addTextField { (alertTextField) in
-            alertTextField.placeholder = "Name it!"
+            self.alerTextFieldInit(alertTextField: alertTextField)
             newTextField = alertTextField
         }
 
@@ -87,48 +133,9 @@ class mainViewController: UIViewController, IQAudioRecorderViewControllerDelegat
     }
     
     
-    @IBAction func logOutTrapped(_ sender: UIButton) {
-        try! Auth.auth().signOut()
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction func listRecord(_ sender: UIButton) {
-        let listRecord = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "RecordsTableViewController") as! RecordsTableViewController
-        self.present(listRecord, animated: true, completion: nil)
-    }
-    
-    @IBAction func startRecordViewController(_ sender: UIButton) {
-        if CLLocationManager.locationServicesEnabled(){
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-            locationManager.startUpdatingLocation()
-            var recordNow = IQAudioRecorderViewController()
-            recordNow.delegate = self
-            recordNow.title = "Recorder"
-            recordNow.maximumRecordDuration = 10
-            recordNow.allowCropping = true
-            recordNow.barStyle = UIBarStyle.default
-            self.presentBlurredAudioRecorderViewControllerAnimated(recordNow)
-        }
-    }
-    
-    @IBAction func startMix(_ sender: UIButton) {
-        
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        loadUserInfo { (finished) in
-            self.loadRecordsFromDatabase { (records) in
-                self.recordPlist = records
-                self.saveRecords(recordList: self.recordPlist)
-            }
-        }
-        locationManager.requestWhenInUseAuthorization()
-    }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error)
+        displayAlert(title: "Error", message: error.localizedDescription)
     }
     
 //

@@ -13,64 +13,64 @@ import SVProgressHUD
 
 class SignUpViewController: UIViewController {
     
+    
+    var userName:String?
+    var email:String?
+    var password:String?
+    
     @IBOutlet weak var userNameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
     
     @IBAction func insertToFireBaseUsers(_ sender: UIButton) {
-        SVProgressHUD.show()
-        guard let userName = userNameTextField.text else {
-            return
-        }
-        guard let email = emailTextField.text else {
-            return
-        }
-        guard let password = passwordTextField.text else {
-            return
-        }
         
-        Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
-            if let error = error{
-                print(error)
+        userNameTextField.backgroundColor = UIColor.white
+        emailTextField.backgroundColor = UIColor.white
+        passwordTextField.backgroundColor = UIColor.white
+        
+        if !(userNameTextField.text?.isEmpty)!{
+            if !(emailTextField.text?.isEmpty)!{
+                if !(passwordTextField.text?.isEmpty)!{
+                    
+                    SVProgressHUD.show()
+                    
+                    userName = userNameTextField.text
+                    email = emailTextField.text
+                    password = passwordTextField.text
+                    
+                    Auth.auth().createUser(withEmail: email!, password: password!) { (user, error) in
+                        SVProgressHUD.dismiss()
+                        if let error = error{
+                            self.displayAlert(title: "Error", message: error.localizedDescription)
+                        } else {
+                            let uid = Auth.auth().currentUser?.uid
+                            User.user.firstTimeLoggedIn = true
+                            let databaseRF = Database.database().reference()
+                            let newUserName = databaseRF.child("Users").child(uid!)
+                            let userDictionary = ["userName" : self.userName, "Email" : self.email, "Password" : self.password]
+                            newUserName.setValue(userDictionary, withCompletionBlock: {( err, database) in
+                                let mixer = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Mixer") as! AudioMixerMenuViewController
+                                self.present(mixer, animated: true, completion: nil)
+                            })
+                        }
+                    }
+                } else {
+                    passwordTextField.shake()
+                    passwordTextField.backgroundColor = UIColor.red
+                }
             } else {
-                SVProgressHUD.dismiss()
-                let uid = Auth.auth().currentUser?.uid
-                User.user.firstTimeLoggedIn = true
-                let databaseRF = Database.database().reference()
-                let newUserName = databaseRF.child("Users").child(uid!)
-                let userDictionary = ["userName" : userName, "Email" : email, "Password" : password] as! Dictionary<String,String>
-                newUserName.setValue(userDictionary, withCompletionBlock: {( err, database) in
-                    let mixer = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Mixer") as! mainViewController
-                    self.present(mixer, animated: true, completion: nil)
-                })
+                emailTextField.shake()
+                emailTextField.backgroundColor = UIColor.red
             }
+        } else {
+            userNameTextField.shake()
+            userNameTextField.backgroundColor = UIColor.red
         }
     }
+    
     
     @IBAction func backToHomePage(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

@@ -19,16 +19,27 @@ class RecordListShare: UITableViewCell {
     var sharedItem:sharedRecord!
     var delegate:RecordListShareCellDelegate?
     
-    func setRecordShared(recordShared:sharedRecord){
+    func setRecordShared(recordShared:sharedRecord, recordLikes:[String]){
         sharedItem = recordShared
+        if recordLikes.contains(recordShared.mixName){
+            likeBtn.isSelected = true
+            if recordShared.numberOfLikes == 1{
+                numberOfLikesLable.text = "You liked it"
+            } else {
+                numberOfLikesLable.text = "You and \(recordShared.numberOfLikes - 1)+"
+            }
+        } else {
+            likeBtn.isSelected = false
+            numberOfLikesLable.text = "\(recordShared.numberOfLikes)"
+        }
         userNameLabel.text = recordShared.userName
         recordNameLabel.text = recordShared.mixName
-        numberOfLikesLable.text = String(recordShared.numberOfLikes)
     }
     
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var recordNameLabel: UILabel!
     @IBOutlet weak var numberOfLikesLable: UILabel!
+    @IBOutlet weak var likeBtn: UIButton!
     
     
     
@@ -42,27 +53,5 @@ class RecordListShare: UITableViewCell {
     
 }
 
-class sharedRecord{
-    
-    var userName:String
-    var mixName:String
-    var numberOfLikes:Int = 0
-    var arrayOfLike:[String] = []
-    
-    init(userName:String, mixName:String, numberOfLikes:Int) {
-        self.userName = userName
-        self.mixName = mixName
-        self.numberOfLikes = numberOfLikes
-    }
-}
 
-class DidLike{
-    
-    var userLike:String
-    var likeOrdisLike:Bool = false
-    
-    init(userLike:String, likeOrdisLike:Bool) {
-        self.userLike = userLike
-        self.likeOrdisLike = likeOrdisLike
-    }
-}
+

@@ -12,8 +12,8 @@ final class Shared {
     static let shared = Shared()
     
     var companyName : String?
-    
 }
+
 
 final class User{
     static let user = User()
@@ -25,7 +25,7 @@ final class User{
 }
 
 
-class audioMixer: Codable{
+class audioMixer{
     
     let name:String!
     let address:String!
@@ -33,6 +33,20 @@ class audioMixer: Codable{
     init(name:String, address:String) {
         self.name = name
         self.address = address
+    }
+}
+
+
+class sharedRecord{
+    
+    var userName:String
+    var mixName:String
+    var numberOfLikes:Int = 0
+    
+    init(userName:String, mixName:String, numberOfLikes:Int) {
+        self.userName = userName
+        self.mixName = mixName
+        self.numberOfLikes = numberOfLikes
     }
 }
 
