@@ -50,6 +50,9 @@ class LoginViewController: UIViewController {
     
     @IBAction func forgetPasswordTrapped(_ sender: UIButton) {
         
+        passwordTextField.backgroundColor = UIColor.white
+        emailTextField.backgroundColor = UIColor.white
+        
         var newTextField = UITextField()
 
         let alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
